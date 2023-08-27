@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright 2003-2020 Intel Corporation.
+* Copyright 2003-2019 Intel Corporation.
 *
 * This software and the related documents are Intel copyrighted  materials,  and
 * your use of  them is  governed by the  express license  under which  they were
@@ -17,9 +17,6 @@
 void CheckVslError(int num)
 {
     switch(num) {
-        case VSL_STATUS_OK: {
-            break;
-        }
         case VSL_ERROR_CPU_NOT_SUPPORTED: {
             printf("Error: CPU version is not supported. (code %d).\n",num);
             break;

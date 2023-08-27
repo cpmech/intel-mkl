@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright 2013-2020 Intel Corporation.
+* Copyright 2013-2019 Intel Corporation.
 *
 * This software and the related documents are Intel copyrighted  materials,  and
 * your use of  them is  governed by the  express license  under which  they were
@@ -13,13 +13,12 @@
 *******************************************************************************/
 
 /*
-*   Content : Intel(R) Math Kernel Library (Intel(R) MKL) IE Sparse BLAS C
-*             example for BSR format
+*   Content : Intel(R) MKL IE Sparse BLAS C example for BSR format
 *
 ********************************************************************************
 *
 * Consider the matrix A (see 'Sparse Storage Formats for Sparse BLAS Level 2
-* and Level 3 in the Intel MKL Reference Manual')
+* and Level 3 in the Intel(R) MKL Reference Manual')
 *
 *                 |   1   -1   7   -3   0    0   |
 *                 |  -2    5   9   -2   0    0   |
@@ -30,7 +29,7 @@
 *
 *  The matrix A is represented in a zero-based compressed sparse row (CSR) storage
 *  scheme with three arrays (see 'Sparse Matrix Storage Schemes' in the
-*  Intel MKL Reference Manual) as follows:
+*  Intel(R) MKL Reference Manual) as follows:
 *
 *         values  =  ( 1 -1 -2 5 7 -3 9 -2 4 6 2 7 4 -9 1 2 3 8 4 1 5 -2 5 7 )
 *         columns =  ( 0  1  1  2  0  2 )

@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright 2013-2020 Intel Corporation.
+* Copyright 2013-2019 Intel Corporation.
 *
 * This software and the related documents are Intel copyrighted  materials,  and
 * your use of  them is  governed by the  express license  under which  they were
@@ -29,7 +29,7 @@
 *
 *                       A = -L+D-L^t; B = (D-L)*D^{-1}*(D-L^t).
 *       Matrix vector multiplication and solution of triangular system implemented
-*   using Sparse BLAS Inspector-Executor functionality
+*   with SPMV interface functionality
 */
 #include <stdio.h>
 #include <assert.h>

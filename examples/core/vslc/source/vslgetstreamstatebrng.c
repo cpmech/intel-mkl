@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright 2003-2020 Intel Corporation.
+* Copyright 2003-2019 Intel Corporation.
 *
 * This software and the related documents are Intel copyrighted  materials,  and
 * your use of  them is  governed by the  express license  under which  they were
@@ -23,12 +23,13 @@
 #include "errcheck.inc"
 
 #define SEED    7777777
+#define N       1000
 
 int main()
 {
     VSLStreamStatePtr stream;
     unsigned int seed;
-    int errcode;
+    int r[N], errcode;
     MKL_INT brngExp = VSL_BRNG_WH+127;
     int brngObt = 0;
 

@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright 2005-2020 Intel Corporation.
+* Copyright 2005-2019 Intel Corporation.
 *
 * This software and the related documents are Intel copyrighted  materials,  and
 * your use of  them is  governed by the  express license  under which  they were
@@ -14,9 +14,8 @@
 
 /*
 !
-!  Content: Intel(R) Math Kernel Library (Intel(R) MKL) RCI CG (Conjugate
-!           Gradient method) C example without preconditioner but with
-!           user-defined stopping criteria
+!  Content: Intel(R) MKL RCI CG (Conjugate Gradient method) C example without
+!           preconditioner but with user-defined stopping criteria
 !
 !*******************************************************************************/
 
@@ -144,7 +143,7 @@ rci:dcgmrhs (&n, solution, &nRhs, rhs, &rci_request, ipar, dpar, tmp);
     }
   /*---------------------------------------------------------------------------*/
   /* If rci_request=2, then do the user-defined stopping test: compute the     */
-  /* Euclidean norm of the actual residual using Intel MKL routines and check if     */
+  /* Euclidean norm of the actual residual using Intel(R) MKL routines and check if     */
   /* it is less than 1.E-4                                                     */
   /*---------------------------------------------------------------------------*/
   if (rci_request == 2)
@@ -225,9 +224,9 @@ getsln:dcgmrhs_get (&n, solution, &nRhs, rhs, &rci_request, ipar, dpar, tmp, ite
   euclidean_norm = dnrm2 (&j, expected_sol, &i);
 
   /*-------------------------------------------------------------------------*/
-  /* Release internal Intel MKL memory that might be used for computations         */
+  /* Release internal Intel(R) MKL memory that might be used for computations         */
   /* NOTE: It is important to call the routine below to avoid memory leaks   */
-  /* unless you disable Intel MKL Memory Manager                                   */
+  /* unless you disable Intel(R) MKL Memory Manager                                   */
   /*-------------------------------------------------------------------------*/
   MKL_Free_Buffers ();
 
@@ -243,9 +242,9 @@ getsln:dcgmrhs_get (&n, solution, &nRhs, rhs, &rci_request, ipar, dpar, tmp, ite
       return 1;
     }
   /*-------------------------------------------------------------------------*/
-  /* Release internal Intel MKL memory that might be used for computations         */
+  /* Release internal Intel(R) MKL memory that might be used for computations         */
   /* NOTE: It is important to call the routine below to avoid memory leaks   */
-  /* unless you disable Intel MKL Memory Manager                                   */
+  /* unless you disable Intel(R) MKL Memory Manager                                   */
   /*-------------------------------------------------------------------------*/
 failure:printf ("This example FAILED as the solver has returned the ERROR code %d", rci_request);
   MKL_Free_Buffers ();

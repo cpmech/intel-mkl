@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright 2011-2020 Intel Corporation.
+* Copyright 2011-2019 Intel Corporation.
 *
 * This software and the related documents are Intel copyrighted  materials,  and
 * your use of  them is  governed by the  express license  under which  they were
@@ -15,7 +15,7 @@
 /*
 ! Content:
 ! A simple example of single-precision complex-to-complex in-place 3D
-! FFT using Intel(R) Math Kernel Library (Intel(R) MKL) DFTI
+! FFT using Intel(R) MKL DFTI
 !
 !****************************************************************************/
 #include <stdio.h>

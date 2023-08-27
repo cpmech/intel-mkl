@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright 2006-2020 Intel Corporation.
+* Copyright 2006-2019 Intel Corporation.
 *
 * This software and the related documents are Intel copyrighted  materials,  and
 * your use of  them is  governed by the  express license  under which  they were
@@ -15,7 +15,7 @@
 /*
 *  Content:
 *  C double precision example of solving Helmholtz problem on a whole sphere
-*  using Intel(R) Math Kernel Library (Intel(R) MKL) Poisson Library
+*  using Intel(R) MKL Poisson Library
 *
 *******************************************************************************/
 
@@ -42,7 +42,7 @@ int main(void)
   MKL_INT mem_error, error;
 
   /* Printing the header for the example */
-  printf("\n Example of use of Intel MKL Poisson Library\n");
+  printf("\n Example of use of Intel(R) MKL Poisson Library\n");
   printf(" **********************************************\n\n");
   printf(" This example gives the solution of Helmholtz problem on a whole sphere\n");
   printf(" 0<p<2*pi, 0<t<pi, with Helmholtz coefficient q=1 and right-hand side\n");
@@ -173,7 +173,7 @@ int main(void)
   }
 
 end:
-    /* Free Intel MKL memory if any was allocated */
+    /* Free Intel(R) MKL memory if any was allocated */
 	mkl_free (dpar);
 	mkl_free (f);
 	mkl_free (u);

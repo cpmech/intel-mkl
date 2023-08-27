@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright 2001-2020 Intel Corporation.
+* Copyright 2001-2019 Intel Corporation.
 *
 * This software and the related documents are Intel copyrighted  materials,  and
 * your use of  them is  governed by the  express license  under which  they were
@@ -22,10 +22,6 @@
 
 #include "_rms.h"
 
-#define INCA 3
-#define INCB 5
-#define INCC 7
-
 int main()
 {
   float fA1[10],fA2[10],fB[10];
@@ -33,13 +29,6 @@ int main()
   float           fBla1[10],fBla2[10];
   float           fBep1[10],fBep2[10];
   float CurRMS,MaxRMS=0.0;
-
-  float fA1_I[10*INCA],fA2_I[10*INCB],fB_I[10*INCC];
-  float fBha0_I[10*INCC],fBha1_I[10*INCC],fBha2_I[10*INCC];
-  float                  fBla1_I[10*INCC],fBla2_I[10*INCC];
-  float                  fBep1_I[10*INCC],fBep2_I[10*INCC];
-  float CurRMS_I,MaxRMS_I=0.0;
-  MKL_INT inca=INCA,incb=INCB,incc=INCC;
 
   MKL_INT i=0,vec_len=10;
 
@@ -74,44 +63,26 @@ int main()
   fB[8]=2.1505452692508698e-01;
   fB[9]=1.9440011680126190e-01;
 
-  for(i=0;i<10;i++) {
-    fA1_I[i*inca]=fA1[i];
-    fA2_I[i*incb]=fA2[i];
-    fB_I[i*incc]=fB[i];
-  }
-
   vsAtan2pi(vec_len,fA1,fA2,fBha0);
-  vsAtan2piI(vec_len,fA1_I,inca,fA2_I,incb,fBha0_I,incc);
 
   vmsAtan2pi(vec_len,fA1,fA2,fBep1,VML_EP);
-  vmsAtan2piI(vec_len,fA1_I,inca,fA2_I,incb,fBep1_I,incc,VML_EP);
 
   vmlSetMode(VML_EP);
   vsAtan2pi(vec_len,fA1,fA2,fBep2);
-  vsAtan2piI(vec_len,fA1_I,inca,fA2_I,incb,fBep2_I,incc);
 
   vmsAtan2pi(vec_len,fA1,fA2,fBla1,VML_LA);
-  vmsAtan2piI(vec_len,fA1_I,inca,fA2_I,incb,fBla1_I,incc,VML_LA);
 
   vmlSetMode(VML_LA);
   vsAtan2pi(vec_len,fA1,fA2,fBla2);
-  vsAtan2piI(vec_len,fA1_I,inca,fA2_I,incb,fBla2_I,incc);
 
   vmsAtan2pi(vec_len,fA1,fA2,fBha1,VML_HA);
-  vmsAtan2piI(vec_len,fA1_I,inca,fA2_I,incb,fBha1_I,incc,VML_HA);
 
   vmlSetMode(VML_HA);
   vsAtan2pi(vec_len,fA1,fA2,fBha2);
-  vsAtan2piI(vec_len,fA1_I,inca,fA2_I,incb,fBha2_I,incc);
 
   for(i=0;i<10;i++) {
     if(fBha0[i]!=fBha1[i] || fBha1[i]!=fBha2[i]) {
       printf("Error! Difference between vsAtan2pi and vmsAtan2pi in VML_HA mode detected.\n");
-      return 1;
-    }
-
-    if(fBha0_I[i*incc]!=fBha1_I[i*incc] || fBha1_I[i*incc]!=fBha2_I[i*incc]) {
-      printf("Error! Difference between vsAtan2piI and vmsAtan2piI in VML_HA mode detected.\n");
       return 1;
     }
 
@@ -120,18 +91,8 @@ int main()
       return 1;
     }
 
-    if(fBla1_I[i*incc]!=fBla2_I[i*incc]) {
-      printf("Error! Difference between vsAtan2piI and vmsAtan2piI in VML_LA mode detected.\n");
-      return 1;
-    }
-
     if(fBep1[i]!=fBep2[i]) {
       printf("Error! Difference between vsAtan2pi and vmsAtan2pi in VML_EP mode detected.\n");
-      return 1;
-    }
-
-    if(fBep1_I[i*incc]!=fBep2_I[i*incc]) {
-      printf("Error! Difference between vsAtan2piI and vmsAtan2piI in VML_EP mode detected.\n");
       return 1;
     }
   }
@@ -145,15 +106,6 @@ int main()
     if(CurRMS>MaxRMS) MaxRMS=CurRMS;
   }
   printf("\n");
-  printf("vsAtan2piI test/example program\n\n");
-  printf("           Argument                     vsAtan2pi\n");
-  printf("===============================================================================\n");
-  for(i=0;i<10;i++) {
-    printf("% 25.14f %25.14f % 25.14e\n",fA1_I[i*inca],fA2_I[i*incb],fBha0_I[i*incc]);
-    CurRMS_I=srelerr(fB_I[i*incc],fBha0_I[i*incc]);
-    if(CurRMS_I>MaxRMS_I) MaxRMS_I=CurRMS_I;
-  }
-  printf("\n");
   if(MaxRMS>=1e-5) {
     printf("Error! Relative accuracy is %.16f\n",MaxRMS);
     return 1;
@@ -162,14 +114,5 @@ int main()
     printf("Relative accuracy is %.16f\n",MaxRMS);
   }
 
-  printf("\n");
-
-  if(MaxRMS_I>=1e-5) {
-    printf("Error! Relative strided accuracy is %.16f\n",MaxRMS_I);
-    return 1;
-  }
-  else {
-    printf("Relative strided accuracy is %.16f\n",MaxRMS_I);
-  }
   return 0;
 }

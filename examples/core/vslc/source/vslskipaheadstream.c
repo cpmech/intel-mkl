@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright 2003-2020 Intel Corporation.
+* Copyright 2003-2019 Intel Corporation.
 *
 * This software and the related documents are Intel copyrighted  materials,  and
 * your use of  them is  governed by the  express license  under which  they were
@@ -34,7 +34,7 @@ int main()
     VSLStreamStatePtr streamS[S];
     int r [N];
     int rS[N];
-    int seed = SEED, i, j, err = 0, errcode;
+    int seed = SEED, i, j, k, err = 0, errcode;
 
     /****** Create main stream *********/
     errcode = vslNewStream  ( &stream,   VSL_BRNG_MCG31,  (MKL_INT)seed );

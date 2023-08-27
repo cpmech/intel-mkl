@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright 2005-2020 Intel Corporation.
+* Copyright 2005-2019 Intel Corporation.
 *
 * This software and the related documents are Intel copyrighted  materials,  and
 * your use of  them is  governed by the  express license  under which  they were
@@ -13,11 +13,11 @@
 *******************************************************************************/
 
 /*
-!   Content : Intel(R) Math Kernel Library (Intel(R) MKL) Sparse BLAS C example
+!   Content : Intel(R) MKL Sparse BLAS C example
 !
 !*******************************************************************************
 !
-! Example program for using Intel MKL Sparse BLAS Level 2 and 3
+! Example program for using Intel(R) MKL Sparse BLAS Level 2 and 3
 ! for matrices represented in the coordinate storage scheme.
 ! The following Sparse  Blas routines are used in the example:
 !          MKL_DCOOSM  MKL_DCOOSV  MKL_DCOOMM  MKL_DCOOMV

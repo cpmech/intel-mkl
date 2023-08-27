@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright 2004-2020 Intel Corporation.
+* Copyright 2004-2019 Intel Corporation.
 *
 * This software and the related documents are Intel copyrighted  materials,  and
 * your use of  them is  governed by the  express license  under which  they were
@@ -14,10 +14,9 @@
 
 /*
 *
-*   Content : Intel(R) Math Kernel Library (Intel(R) MKL) Cluster Sparse Solver
-*             C example which demonstrates usage of export functionality which
-*             provides the factors L, U and permutations P and Q such that
-*             P * A * Q = L * U.
+*   Content : Intel(R) MKL Cluster Sparse Solver C example which demonstrates
+*             usage of export functionality which provides the factors L, U and
+*             permutations P and Q such that P * A * Q = L * U.
 *
 *******************************************************************************/
 #include <stdio.h>

@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright 2003-2020 Intel Corporation.
+* Copyright 2003-2019 Intel Corporation.
 *
 * This software and the related documents are Intel copyrighted  materials,  and
 * your use of  them is  governed by the  express license  under which  they were
@@ -32,6 +32,7 @@ int main()
     VSLSSTaskPtr task;
     MKL_INT dim;
     MKL_INT n;
+    MKL_INT m;
     MKL_INT x_storage;
 
     double x[DIM][N];       /* matrix of observations */

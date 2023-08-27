@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright 1999-2020 Intel Corporation.
+* Copyright 1999-2019 Intel Corporation.
 *
 * This software and the related documents are Intel copyrighted  materials,  and
 * your use of  them is  governed by the  express license  under which  they were
@@ -52,9 +52,9 @@ int main(void) {
 
     seconds_s = dsecnd();
 
-    printf("\nIntel(R) MKL service functions example started\n");
+    printf("\nIntel(R) MKLservice functions example started\n");
 
-    printf("\nIntel(R) MKL release version:\n");
+    printf("\nIntel(R) MKLrelease version:\n");
     MKL_Get_Version_String(buf, buf_len);
     printf("%s\n",buf);
 
@@ -144,7 +144,7 @@ int main(void) {
         MKL_free(c);
     }  
     seconds_e = dsecnd()-seconds_s;
-    printf("\nIntel(R) MKL service functions example finished at%8.4f seconds\n",seconds_e);
+    printf("\nIntel(R) MKLservice functions example finished at%8.4f seconds\n",seconds_e);
 
     return 0;
 }

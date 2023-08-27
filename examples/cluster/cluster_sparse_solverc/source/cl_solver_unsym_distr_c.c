@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright 2004-2020 Intel Corporation.
+* Copyright 2004-2019 Intel Corporation.
 *
 * This software and the related documents are Intel copyrighted  materials,  and
 * your use of  them is  governed by the  express license  under which  they were
@@ -14,10 +14,9 @@
 
 /*
 *
-*   Intel(R) Math Kernel Library (Intel(R) MKL) Cluster Sparse Solver example
-*   demonstrating the case when initial data (matrix and rhs) distributed
-*   between several MPI processes, final solution is distributed between
-*   MPI processes in the same way as they hold initial data.
+*   Intel(R) MKL Cluster Sparse Solver example demonstrating the case when initial data (matrix
+*   and rhs) distributed between several MPI processes, final solution is
+*   distributed between MPI processes in the same way as they hold initial data.
 *
 ********************************************************************************
 */

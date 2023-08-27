@@ -1,5 +1,5 @@
 #===============================================================================
-# Copyright 2006-2020 Intel Corporation.
+# Copyright 2006-2019 Intel Corporation.
 #
 # This software and the related documents are Intel copyrighted  materials,  and
 # your use of  them is  governed by the  express license  under which  they were
@@ -108,8 +108,6 @@ CMPLR_PATH = "$(MKLROOT)/../compiler/lib/$(_IA)"
 LOPTS = 
 COPTS = 
 
-WARN_FLAGS = -Wall -Werror
-
 ifeq ($(compiler),gnu)
    override CC = gcc
    ifeq ($(RES_EXT),so)
@@ -120,7 +118,6 @@ ifeq ($(compiler),gnu)
 else
    ifeq ($(compiler),pgi)
       override CC=pgcc
-      override WARN_FLAGS = 
    else
       override CC=icc
    endif
@@ -210,7 +207,7 @@ vpath %.c source
 
 $(RES): %.res: %.c
 	mkdir -p ./$(RES_DIR)
-	$(CC) $(SPEC_OPT) $(WARN_FLAGS) $(COPTS) -I$(MKLROOT)/include $< -L$(MKL_PATH) $(LOPTS) $(MKL_LIBS) -lpthread -lm -ldl -o $(RES_DIR)/$*.out
+	$(CC) $(SPEC_OPT) -Wall -Werror $(COPTS) -I$(MKLROOT)/include $< -L$(MKL_PATH) $(LOPTS) $(MKL_LIBS) -lpthread -lm -ldl -o $(RES_DIR)/$*.out
 	export LD_LIBRARY_PATH=$(MKL_PATH):$(LD_LIBRARY_PATH):$(CMPLR_PATH); $(RES_DIR)/$*.out >$(RES_DIR)/$@
 
 #-------------------------------------------------------------------------------

@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright 2005-2020 Intel Corporation.
+* Copyright 2005-2019 Intel Corporation.
 *
 * This software and the related documents are Intel copyrighted  materials,  and
 * your use of  them is  governed by the  express license  under which  they were
@@ -13,9 +13,8 @@
 *******************************************************************************/
 
 /*
-!   Content: Example for k Max/Min eigenvalue problem based on
-!            Intel(R) Math Kernel Library (Intel(R) MKL) Extended
-!            Eigensolver (CSR sparse format, double precision)
+!   Content: Example for k Max/Min eigenvalue problem based on Intel MKL 
+!            Extended Eigensolver (CSR sparse format, double precision)
 !
 !*******************************************************************************
 !
@@ -32,8 +31,8 @@
 ! stored as sparse matrix.
 !
 !
-!  The test calls mkl_sparse_d_ev routine to find several largest singular
-!  values and corresponding right-singular vectors. Orthogonality of singular
+!  The test calls mkl_sparse_d_ev routine to find several largest singular 
+!  values and corresponding right-singular vectors. Orthogonality of singular  
 !  vectors is tested using DGEMM routine
 !
 !*******************************************************************************/
@@ -46,9 +45,12 @@
 #define max(a, b) (a) < (b) ? (b): (a)
 
 int main()
-{
+{   
     /* Matrix A of size N in CSR format */
-    MKL_INT     N = 4;                                   /* number of rows in matrix A */
+    MKL_INT N = 4;               /* number of rows in matrix A */
+    MKL_INT M = 4;               /* number of columns in matrix A */
+    MKL_INT nnz = 8;             /* number of non-zeros in matrix */
+
     MKL_INT ia[5] = {1,3,5,7,9};                         /* ia array from CSR format */
     MKL_INT ja[8] = {1,2,1,2,3,4,3,4};                   /* ja array from CSR format */
     double   a[8] = {6.0,2.0,2.0,3.0,2.0,-1.0,-1.0,2.0}; /* val array from CSR format */
@@ -58,22 +60,23 @@ int main()
     /* mkl_sparse_d_ev input parameters */
     char         which = 'S'; /* Which eigenvalues to calculate. ('L' - largest (algebraic) eigenvalues, 'S' - smallest (algebraic) eigenvalues) */
     MKL_INT      pm[128];     /* This array is used to pass various parameters to Extended Eigensolver Extensions routines. */
-    MKL_INT      k0  = 3;     /* Desired number of max/min eigenvalues */
-
-    /* mkl_sparse_d_ev output parameters */
-    MKL_INT      k;      /* Number of eigenvalues found (might be less than k0). */
+    MKL_INT      k0  = 3;     /* Desired number of max/min eigenvalues */      
+    
+    /* mkl_sparse_d_ev output parameters */        
+    MKL_INT      k;           /* Number of eigenvalues found (might be less than k0). */    
     double       E[4];   /* Eigenvalues */
-    double       X[4*4]; /* Eigenvectors */
+    double       X[4];   /* Eigenvectors */
     double       res[4]; /* Residual */
 
     /* Local variables */
     MKL_INT      info;               /* Errors */
-    MKL_INT      compute_vectors = 1;/* Flag to compute eigenvectors */
+    MKL_INT      compute_vectors = 0;/* Flag to compute eigenvecors */
     MKL_INT      tol = 7;            /* Tolerance */
-    double       Y[4*4];             /* Y=(X')*X-I */
+    double       Y[4];               /* Y=(X')*X-I */
+    double       sparsity;           /* Sparsity of randomly generated matrix */
     MKL_INT      i, j;
-    double       smax;
-
+    double       smax, t;    
+    
     /* Input variables for DGEMM */
     char         DGEMMC = 'T';       /* Character for GEMM routine, transposed case */
     char         DGEMMN = 'N';       /* Character for GEMM routine, non-transposed case */
@@ -81,23 +84,24 @@ int main()
     double       zero = 0.0;         /* beta  parameter for GEMM */
     MKL_INT      ldx  = N;           /* Leading dimension for source arrays in GEMM */
     MKL_INT      ldy;                /* Leading dimension for destination array in GEMM */
-
+    
     /* Sparse BLAS IE variables */
+    sparse_status_t status;
     sparse_matrix_t A = NULL; /* Handle containing sparse matrix in internal data structure */
     struct matrix_descr descr; /* Structure specifying sparse matrix properties */
-
+    
     /* Create handle for matrix A stored in CSR format */
     descr.type = SPARSE_MATRIX_TYPE_GENERAL; /* Full matrix is stored */
-    mkl_sparse_d_create_csr ( &A, SPARSE_INDEX_BASE_ONE, N, N, ia, ia+1, ja, a );
+    status = mkl_sparse_d_create_csr ( &A, SPARSE_INDEX_BASE_ONE, N, N, ia, ia+1, ja, a );
 
     /* Step 2. Call mkl_sparse_ee_init to define default input values */
     mkl_sparse_ee_init(pm);
 
     pm[1] = tol; /* Set tolerance */
-    pm[6] = compute_vectors;
-
+    pm[6] = compute_vectors; 
+    
     /* Step 3. Solve the standard Ax = ex eigenvalue problem. */
-    info = mkl_sparse_d_ev(&which, pm, A, descr, k0, &k, E, X, res);
+    info = mkl_sparse_d_ev(&which, pm, A, descr, k0, &k, E, X, res);    
 
     printf("mkl_sparse_d_ev output info %d \n",info);
     if ( info != 0 )

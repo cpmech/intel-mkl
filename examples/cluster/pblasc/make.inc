@@ -1,6 +1,6 @@
 # vim: syntax=make
 #===============================================================================
-# Copyright 2001-2020 Intel Corporation.
+# Copyright 2001-2019 Intel Corporation.
 #
 # This software and the related documents are Intel copyrighted  materials,  and
 # your use of  them is  governed by the  express license  under which  they were
@@ -147,7 +147,6 @@ SCALAPACKLIB= $(MKL_PATH)/libmkl_scalapack$(IFACE_PART).$(EXT_LIB)
 LAPACKLIB=
 ifeq ($(dynamic),yes)
 MKL_LIBS=-L$(MKL_PATH) \
-    -Wl,-rpath,$(MKL_PATH) \
     -Wl,--start-group \
         $(SCALAPACKLIB) $(FBLACSLIB) \
         $(MKL_PATH)/libmkl_intel$(ADD_IFACE).so \

@@ -30,7 +30,7 @@ RUN curl https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCT
 # install MKL
 RUN apt-get update -y && apt-get install -y --no-install-recommends \
   build-essential \
-  intel-mkl-2018.2-046
+  intel-mkl-2020.0-088
 
 # copy files
 COPY examples /tmp/mkl-examples

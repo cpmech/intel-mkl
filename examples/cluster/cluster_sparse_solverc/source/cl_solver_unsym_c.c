@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright 2004-2020 Intel Corporation.
+* Copyright 2004-2019 Intel Corporation.
 *
 * This software and the related documents are Intel copyrighted  materials,  and
 * your use of  them is  governed by the  express license  under which  they were
@@ -14,8 +14,8 @@
 
 /*
 *
-*   Content : Intel(R) Math Kernel Library (Intel(R) MKL) Cluster Sparse Solver
-*             C example for real, double precision, unsymmetric matrix
+*   Content : Intel(R) MKL Cluster Sparse Solver C example for
+*              real, double precision, unsymmetric matrix
 *
 *******************************************************************************/
 #include <stdio.h>

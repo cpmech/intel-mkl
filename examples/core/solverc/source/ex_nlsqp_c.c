@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright 2004-2020 Intel Corporation.
+* Copyright 2004-2019 Intel Corporation.
 *
 * This software and the related documents are Intel copyrighted  materials,  and
 * your use of  them is  governed by the  express license  under which  they were
@@ -109,9 +109,9 @@ int main ()
     {
         /* if function does not complete successfully then print error message */
         printf ("| error in dtrnlsp_init\n");
-        /* Release internal Intel(R) Math Kernel Library (Intel(R) MKL) memory that might be used for computations.        */
+        /* Release internal Intel(R) MKL memory that might be used for computations.        */
         /* NOTE: It is important to call the routine below to avoid memory leaks   */
-        /* unless you disable Intel MKL Memory Manager                                   */
+        /* unless you disable Intel(R) MKL Memory Manager                                   */
         MKL_Free_Buffers ();
         /* and exit */
         error = 1;
@@ -123,9 +123,9 @@ int main ()
     {
         /* if function does not complete successfully then print error message */
         printf ("| error in dtrnlspbc_init\n");
-        /* Release internal Intel MKL memory that might be used for computations.        */
+        /* Release internal Intel(R) MKL memory that might be used for computations.        */
         /* NOTE: It is important to call the routine below to avoid memory leaks   */
-        /* unless you disable Intel MKL Memory Manager                                   */
+        /* unless you disable Intel(R) MKL Memory Manager                                   */
         MKL_Free_Buffers ();
         /* and exit */
         error = 1;
@@ -140,9 +140,9 @@ int main ()
            )
         {
             printf ("| input parameters for dtrnlsp_solve are not valid\n");
-            /* Release internal Intel MKL memory that might be used for computations.        */
+            /* Release internal Intel(R) MKL memory that might be used for computations.        */
             /* NOTE: It is important to call the routine below to avoid memory leaks   */
-            /* unless you disable Intel MKL Memory Manager                                   */
+            /* unless you disable Intel(R) MKL Memory Manager                                   */
             MKL_Free_Buffers ();
             /* and exit */
             error = 1;
@@ -164,9 +164,9 @@ int main ()
         {
             /* if function does not complete successfully then print error message */
             printf ("| error in dtrnlsp_solve\n");
-            /* Release internal Intel MKL memory that might be used for computations.        */
+            /* Release internal Intel(R) MKL memory that might be used for computations.        */
             /* NOTE: It is important to call the routine below to avoid memory leaks   */
-            /* unless you disable Intel MKL Memory Manager                                   */
+            /* unless you disable Intel(R) MKL Memory Manager                                   */
             MKL_Free_Buffers ();
             /* and exit */
             error = 1;
@@ -201,9 +201,9 @@ int main ()
             {
                 /* if function does not complete successfully then print error message */
                 printf ("| error in djacobi\n");
-                /* Release internal Intel MKL memory that might be used for computations.        */
+                /* Release internal Intel(R) MKL memory that might be used for computations.        */
                 /* NOTE: It is important to call the routine below to avoid memory leaks   */
-                /* unless you disable Intel MKL Memory Manager                                   */
+                /* unless you disable Intel(R) MKL Memory Manager                                   */
                 MKL_Free_Buffers ();
                 /* and exit */
                 error = 1;
@@ -221,9 +221,9 @@ int main ()
     {
         /* if function does not complete successfully then print error message */
         printf ("| error in dtrnlsp_get\n");
-        /* Release internal Intel MKL memory that might be used for computations.        */
+        /* Release internal Intel(R) MKL memory that might be used for computations.        */
         /* NOTE: It is important to call the routine below to avoid memory leaks   */
-        /* unless you disable Intel MKL Memory Manager                                   */
+        /* unless you disable Intel(R) MKL Memory Manager                                   */
         MKL_Free_Buffers ();
         /* and exit */
         error = 1;
@@ -234,9 +234,9 @@ int main ()
     {
         /* if function does not complete successfully then print error message */
         printf ("| error in dtrnlsp_delete\n");
-        /* Release internal Intel MKL memory that might be used for computations.        */
+        /* Release internal Intel(R) MKL memory that might be used for computations.        */
         /* NOTE: It is important to call the routine below to avoid memory leaks   */
-        /* unless you disable Intel MKL Memory Manager                                   */
+        /* unless you disable Intel(R) MKL Memory Manager                                   */
         MKL_Free_Buffers ();
         /* and exit */
         error = 1;
@@ -256,9 +256,9 @@ end:
         printf ("| insufficient memory \n");
         return 1;
     }
-    /* Release internal Intel MKL memory that might be used for computations.        */
+    /* Release internal Intel(R) MKL memory that might be used for computations.        */
     /* NOTE: It is important to call the routine below to avoid memory leaks   */
-    /* unless you disable Intel MKL Memory Manager                                   */
+    /* unless you disable Intel(R) MKL Memory Manager                                   */
     MKL_Free_Buffers ();
     /* if final residual less then required precision then print pass */
     if (r2 < 0.00001)

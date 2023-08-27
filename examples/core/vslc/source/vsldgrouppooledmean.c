@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright 2003-2020 Intel Corporation.
+* Copyright 2003-2019 Intel Corporation.
 *
 * This software and the related documents are Intel copyrighted  materials,  and
 * your use of  them is  governed by the  express license  under which  they were
@@ -51,7 +51,7 @@ int main()
 
     double a = 0.0, sigma = 1.0;
 
-    int i, errcode, ret_value;
+    int i, j, errcode, ret_value;
     int errnums = 0;
 
     double pval_pld_mean[DIM], pval_grp_mean[DIM*GN];

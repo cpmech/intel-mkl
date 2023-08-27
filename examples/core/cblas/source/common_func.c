@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright 1999-2020 Intel Corporation.
+* Copyright 1999-2019 Intel Corporation.
 *
 * This software and the related documents are Intel copyrighted  materials,  and
 * your use of  them is  governed by the  express license  under which  they were
@@ -36,24 +36,6 @@ MKL_INT MaxValue(MKL_INT n, MKL_INT *x)
           if (indmax < x[i]) indmax = x[i];
       return indmax;
 } /* MaxValue */
-
-typedef union {
-  float float_part;
-  MKL_BF16 int_part[2];
-} conv_t;
-
-static float b2f(MKL_BF16 src) {
-  conv_t conv;
-  conv.int_part[0] = 0;
-  conv.int_part[1] = src;
-  return conv.float_part;
-}
-
-static MKL_BF16 f2b(float src) {
-  conv_t conv;
-  conv.float_part = src;
-  return conv.int_part[1];
-}
 
 MKL_INT GetVectorI(FILE *in_file, MKL_INT n, MKL_INT *x)
 {
@@ -240,56 +222,6 @@ MKL_INT GetArrayI32(FILE *in_file, CBLAS_LAYOUT*layout, MKL_INT flag, MKL_INT *m
      } /* if */
      return 0;
 } /* GetArrayI32 */
-
-MKL_INT GetArrayBF16(FILE *in_file, CBLAS_LAYOUT*layout, MKL_INT flag, MKL_INT *m, MKL_INT *n,
-              MKL_BF16 *a,  MKL_INT *lda)
-{
-      MKL_INT   i, j, number;
-      MKL_BF16 *addr;
-
-      if( *layout == CblasRowMajor ) {
-         if( flag == GENERAL_MATRIX ) {
-            for( i = 0; i < (*m); i++ ) {
-               addr = a + i*(*lda);
-               number = GetValuesBF16( in_file, addr, 1, 0, *n );
-               if( number != *n ) return 1;
-            } /* for */
-         } else if( flag == UPPER_MATRIX ) {
-            for (i = 0; i < (*m); i++) {
-               addr = a + i*(*lda);
-               number = GetValuesBF16( in_file, addr, 1, i, *n-i );
-               if( number != *n-i ) return 1;
-            } /* for */
-         } else if( flag == LOWER_MATRIX ) {
-            for (i = 0; i < (*m); i++) {
-               addr = a + i*(*lda);
-               number = GetValuesBF16( in_file, addr, 1, 0, i+1 );
-               if( number != i+1 ) return 1;
-            } /* for */
-         } /* if */
-      } else if( *layout == CblasColMajor ) {
-         if( flag == GENERAL_MATRIX ) {
-            for( j = 0; j < (*n); j++ ) {
-               addr = a + j*(*lda);
-               number = GetValuesBF16( in_file, addr, 1, 0, *m );
-               if( number != *m ) return 1;
-            } /* for */
-         } else if( flag == UPPER_MATRIX ) {
-            for( j = 0; j < (*n); j++ ) {
-               addr = a + j*(*lda);
-               number = GetValuesBF16( in_file, addr, 1, 0, j+1 );
-               if( number != j+1 ) return 1;
-            } /* for */
-         } else if( flag == LOWER_MATRIX ) {
-            for( j = 0; j < (*n); j++ ) {
-               addr = a + j*(*lda);
-               number = GetValuesBF16( in_file, addr, 1, j, *m-j );
-               if( number != *m-j ) return 1;
-            } /* for */
-         } /* if */
-      } /* if */
-      return 0;
-} /* GetArrayBF16 */
 
 MKL_INT GetArrayS(FILE *in_file, CBLAS_LAYOUT*layout, MKL_INT flag, MKL_INT *m, MKL_INT *n,
               float *a,  MKL_INT *lda)
@@ -816,33 +748,6 @@ MKL_INT GetValuesI32( FILE *in_file, MKL_INT32 *in_array, MKL_INT ld, MKL_INT be
     }
     return counter;
 }
-
-MKL_INT GetValuesBF16( FILE *in_file, MKL_BF16 *in_array, MKL_INT ld, MKL_INT begin, MKL_INT max_numbers )
-{
-    MKL_INT i, counter=0;
-    float   temp;
-    char    buf[MAX_STRING_LEN], *str;
-
-    do {
-       fgets( buf, MAX_STRING_LEN, in_file );
-       str = strtok( buf, " " );
-       if( str == NULL ){
-           printf( "\n File format is inappropriate\n");
-           return 0;
-       }
-    } while ( *str == COMMENTS );
-    for( i = 0; i < max_numbers; i++ ) {
-       if ( *str==COMMENTS ) break;
-       if( sscanf( str, "%f", &temp) != 1 ){
-           printf( "\n File format is inappropriate\n" );
-           return 0;
-       }
-       in_array[begin+i*ld]=f2b(temp);
-       counter++;
-       if ( (str = strtok( NULL, " " )) == NULL  ) break;
-    }
-    return counter;
-} /* GetValuesBF16 */
 
 MKL_INT GetValuesD( FILE *in_file, double *in_array, MKL_INT ld, MKL_INT begin, MKL_INT max_numbers )
 {
@@ -1512,6 +1417,8 @@ void PrintArrayI8(CBLAS_LAYOUT*layout, int flag1, int flag2, MKL_INT *m, MKL_INT
         return;
 } /* PrintArrayI8 */
 
+
+
 void PrintArrayI16(CBLAS_LAYOUT*layout, int flag1, int flag2, MKL_INT *m, MKL_INT *n, MKL_INT16 *a,
                 MKL_INT *lda, char *name)
 {
@@ -1651,76 +1558,6 @@ void PrintArrayI32(CBLAS_LAYOUT*layout, int flag1, int flag2, MKL_INT *m, MKL_IN
 	} /* if */
 	return;
 } /* PrintArrayI32 */
-
-void PrintArrayBF16(CBLAS_LAYOUT*layout, int flag1, int flag2, MKL_INT *m, MKL_INT *n, MKL_BF16 *a,
-                MKL_INT *lda, char *name)
-{
-        MKL_INT i, j;
-        MKL_BF16 *addr;
-
-        switch(flag1) {
-        case 0:
-            printf("\n       ARRAY %s   LD%s=" INT_FORMAT, name, name, *lda);
-            break;
-        case 1:
-            printf("\n       ARRAY %s", name);
-            break;
-        default:
-            break;
-        } /* switch */
-        if (*layout == CblasRowMajor) {
-            if (flag2 == GENERAL_MATRIX) {
-                for (i = 0; i < *m; i++) {
-                    printf("\n         ");
-                    addr = a + i*(*lda);
-                    for (j = 0; j < *n; j++)
-                        printf("%6.2f  ", b2f(*(addr+j)));
-                } /* for */
-            } else if (flag2 == UPPER_MATRIX) {
-                for (i = 0; i < (*m); i++) {
-                    printf("\n         ");
-                    addr = a + i*(*lda);
-                    for (j=0; j < i; j++)
-                        printf("        ");
-                    for (j = i; j < *n; j++)
-                        printf("%6.2f  ", b2f(*(addr+j)));
-                } /* for */
-            } else if (flag2 == LOWER_MATRIX) {
-                for (i = 0; i < *m; i++) {
-                    printf("\n         ");
-                    addr = a + i*(*lda);
-                    for (j = 0; j <= i; j++)
-                        printf("%6.2f  ", b2f(*(addr+j)));
-                } /* for */
-            } /* if */
-        } else if (*layout == CblasColMajor) {
-            if (flag2 == GENERAL_MATRIX) {
-                for (i = 0; i < *m; i++) {
-                    printf("\n         ");
-                    addr = a + i;
-                    for (j = 0; j < *n; j++)
-                        printf("%6.2f  ", b2f(*(addr+j*(*lda))));
-                } /* for */
-            } else if (flag2 == UPPER_MATRIX) {
-                for (i = 0; i < (*m); i++) {
-                    printf("\n         ");
-                    addr = a + i;
-                    for (j=0; j < i; j++)
-                        printf("        ");
-                    for (j = i; j < *n; j++)
-                        printf("%6.2f  ", b2f(*(addr+j*(*lda))));
-                } /* for */
-            } else if (flag2 == LOWER_MATRIX) {
-                for (i = 0; i < (*m); i++) {
-                    printf("\n         ");
-                    addr = a + i;
-                    for (j = 0; j <= i; j++)
-                        printf("%6.2f  ", b2f(*(addr+j*(*lda))));
-                } /* for */
-            } /* if */
-        } /* if */
-        return;
-} /* PrintArrayBF16 */
 
 void PrintArrayS(CBLAS_LAYOUT*layout, int flag1, int flag2, MKL_INT *m, MKL_INT *n, float *a,
                 MKL_INT *lda, char *name)

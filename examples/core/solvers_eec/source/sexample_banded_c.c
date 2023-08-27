@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright 2005-2020 Intel Corporation.
+* Copyright 2005-2019 Intel Corporation.
 *
 * This software and the related documents are Intel copyrighted  materials,  and
 * your use of  them is  governed by the  express license  under which  they were
@@ -13,8 +13,8 @@
 *******************************************************************************/
 
 /*
-!   Content: Example for Intel(R) Math Kernel Library (Intel(R) MKL) Extended
-!            Eigensolvers (banded format, single precision)
+!   Content: Example for Intel(R) MKL Extended Eigensolvers (banded format,
+!            single precision)
 !
 !*******************************************************************************
 !
@@ -84,7 +84,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include "mkl.h"
+#include "mkl_solvers_ee.h"
 
 #define max(a, b) (a) < (b) ? (b): (a)
 
@@ -125,7 +125,7 @@ int main()
                     };
 
     /* Declaration of FEAST variables */
-    MKL_INT       fpm[128];      /* Array to pass parameters to Intel MKL Extended Eigensolvers */
+    MKL_INT       fpm[128];      /* Array to pass parameters to Intel(R) MKL Extended Eigensolvers */
     float         Emin, Emax;    /* Lower/upper bound of search interval [Emin,Emax] */
 
     float         epsout;        /* Relative error on the trace */
@@ -142,7 +142,7 @@ int main()
     MKL_INT       info;          /* Errors */
     float         Eig[11];       /* Eig - array for storing exact eigenvalues */
     float         R[11];         /* R = |E-Eig| */
-    float         Y[121];        /* Y=(X')*X-I */
+    float         Y[11][11];     /* Y=(X')*X-I */
 
     char          SGEMMC = 'T';  /* Character for GEMM routine, transposed case */
     char          SGEMMN = 'N';  /* Character for GEMM routine, non-transposed case */
@@ -188,7 +188,7 @@ int main()
 
     /* Step 1. Call  FEASTINIT to define the default values for the input FEAST parameters */
     feastinit(
-        fpm /* OUT: Array is used to pass parameters to Intel MKL Extended Eigensolvers */
+        fpm /* OUT: Array is used to pass parameters to Intel(R) MKL Extended Eigensolvers */
         );
 
     fpm[0] =  1; /* Extended Eigensolver routines print runtime status to the screen. */
@@ -201,7 +201,7 @@ int main()
         &bandA,  /* IN: The number of super-diagonals within the band in A */
         A,       /* IN: Matrix A in banded format*/
         &lda,    /* IN: The first dimension of the matrix A  */
-        fpm,     /* IN/OUT: Array is used to pass parameters to Intel MKL Extended Eigensolvers */
+        fpm,     /* IN/OUT: Array is used to pass parameters to Intel(R) MKL Extended Eigensolvers */
         &epsout, /* OUT: Relative error of on the trace */
         &loop,   /* OUT: Contains the number of refinement loop executed */
         &Emin,   /* IN: Lower bound of search interval */
@@ -258,7 +258,7 @@ int main()
     /* Compute Y = Y - I */
     for (i=0; i<M; i++)
     {
-        Y[i*M + i] -= 1.0;
+        Y[i][i] -= 1.0;
     }
 
     printf("*************************************************\n");
@@ -284,7 +284,7 @@ int main()
     {
         for (j=0; j<M; j++)
         {
-            smax = max(smax, fabs(Y[i*M + j]));
+            smax = max(smax, fabs(Y[i][j]));
         }
     }
     printf("Max(X' * X - I) = %.7e \n", smax);
@@ -315,7 +315,7 @@ int main()
         &bandB,  /* IN: The number of super-diagonals within the band in B */
         B,       /* IN: Matrix B in banded format*/
         &ldb,    /* IN: The first dimension of the matrix B  */
-        fpm,     /* IN: Array is used to pass parameters to Intel MKL Extended Eigensolvers */
+        fpm,     /* IN: Array is used to pass parameters to Intel(R) MKL Extended Eigensolvers */
         &epsout, /* OUT: Relative error of on the trace */
         &loop,   /* OUT: Contains the number of refinement loop executed */
         &Emin,   /* IN: Lower bound of search interval */
@@ -373,7 +373,7 @@ int main()
     /* Compute Y = Y - I */
     for (i=0; i<M; i++)
     {
-        Y[i*M + i] -= 1.0;
+        Y[i][i] -= 1.0;
     }
 
     /* Check the orthogonality of X' * X */
@@ -382,7 +382,7 @@ int main()
     {
         for (j=0; j<M; j++)
         {
-            smax = max(smax, fabs(Y[i*M + j]));
+            smax = max(smax, fabs(Y[i][j]));
         }
     }
 

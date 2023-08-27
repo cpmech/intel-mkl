@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright 2005-2020 Intel Corporation.
+* Copyright 2005-2019 Intel Corporation.
 *
 * This software and the related documents are Intel copyrighted  materials,  and
 * your use of  them is  governed by the  express license  under which  they were
@@ -13,12 +13,11 @@
 *******************************************************************************/
 
 /*
-!   Content : Intel(R) Math Kernel Library (Intel(R) MKL) Extended Eigensolvers
-!             C example
+!   Content : Intel(R) MKL Extended Eigensolvers C example
 !
 !*******************************************************************************
 !
-! Example program for using Intel MKL Extended Eigensolvers (sparse format).
+! Example program for using Intel(R) MKL Extended Eigensolvers (sparse format).
 !
 ! The following routines are used in the example:
 !          SGEMM MKL_SPARSE_S_MM MKL_SPARSE_C_ADD SFEAST_SRCI PARDISO.
@@ -84,7 +83,8 @@ int main()
     const MKL_INT N = 11;
     float         val[38], valb[11];
     MKL_Complex8  cval[38], cvalb[11], *cvalz, caux[8*11];
-    MKL_INT       rows[12], cols[38], rowsb[12], colsb[11], *rowsz, *colsz;
+    MKL_INT       rows[12], cols[38], crows[12], ccols[38], rowsb[12], \
+                  colsb[11], *rowsz, *colsz;
 
     //!!!!!!!!!!!!!!! Declaration of Spblas variables !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     //!!! A, B - Handles containing a sparse matrix in internal data structure!!!!!!
@@ -131,18 +131,22 @@ int main()
     //!!! Eig - array for storing exact eigenvalues, R=|E-Eig|, Y=(X')*X-I !!!!!!!!!
     float         Eig[11];
     float         R[11];
-    float         Y[121];
+    float         Y[11][11];
     MKL_INT       i,j;
     MKL_INT       ldx = 11, ldy = 11;
     float         trace;
     float         smax, eigabs;
     char          SGEMMC = 'T', SGEMMN = 'N';
     float         one, zero;
+    MKL_INT       ione = 1;
+    MKL_Complex8  zone;
     MKL_INT       colsX, imem;
 
     printf("\n    FEAST SFEAST_SRCI EXAMPLE PROGRAM\n");
     one = (float)1.0;
     zero = (float)0.0;
+    zone.real = (float)1.0;
+    zone.imag = (float)0.0;
 
     //!!!!!!!!!!!!!!! Exact eigenvalues in range (3.0, 7.0) !!!!!!!!!!!!!!!!!!!!!!
     for ( i=0; i<N; i++ )
@@ -442,7 +446,7 @@ int main()
 
     //          Compute Y=Y-I.
     for ( i=0; i<M; i++ )
-        Y[i*M + i] = Y[i*M + i]-(float)1.0;
+        Y[i][i] = Y[i][i]-(float)1.0;
 
     printf("*************************************************\n");
     printf("************** REPORT ***************************\n");
@@ -467,7 +471,7 @@ int main()
     {
         for ( j=0; j<M; j++ )
         {
-            smax = max(smax, fabs(Y[i*M + j]));
+            smax = max(smax, fabs(Y[i][j]));
         }
     }
     printf( "Max of (transposed of X)*X-I %.7e \n", smax);

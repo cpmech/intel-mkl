@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright 2013-2020 Intel Corporation.
+* Copyright 2013-2019 Intel Corporation.
 *
 * This software and the related documents are Intel copyrighted  materials,  and
 * your use of  them is  governed by the  express license  under which  they were
@@ -13,8 +13,7 @@
 *******************************************************************************/
 
 /*
-*   Content : Intel(R) Math Kernel Library (Intel(R) MKL) IE Sparse BLAS C
-*             example for mkl_sparse_d_spmmd
+*   Content : Intel (R) MKL IE Sparse BLAS C example for mkl_sparse_d_spmmd
 *
 ********************************************************************************
 *
@@ -36,7 +35,7 @@
 *
 *  Both matrices A and B are stored in a zero-based compressed sparse row (CSR) storage
 *  scheme with three arrays (see 'Sparse Matrix Storage Schemes' in the
-*  Intel MKL Developer Reference) as follows:
+*  Intel (R) Math Kernel Library Developer Reference) as follows:
 *
 *           values_A = ( 10  11  12  13  15  14  16  17  18  19 )
 *          columns_A = (  0   1   2   3   0   4   1   2   3   4 )

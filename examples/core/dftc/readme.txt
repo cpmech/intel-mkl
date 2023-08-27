@@ -1,5 +1,5 @@
 !===============================================================================
-! Copyright 2003-2020 Intel Corporation.
+! Copyright 2003-2019 Intel Corporation.
 !
 ! This software and the related documents are Intel copyrighted  materials,  and
 ! your use of  them is  governed by the  express license  under which  they were
@@ -33,11 +33,10 @@ function checks if the unit peak is produced by the computation.
 Every example uses dynamically allocated arrays for the data.  Sizes of the
 transforms and parameters for verification are selected randomly.
 
-Refer to "Fast Fourier Transforms" chapter in
-Intel(R) Math Kernel Library (Intel(R) MKL) Reference Manual
+Refer to "Fast Fourier Transforms" chapter in Intel(R) MKL Reference Manual
 for detailed description of the functions used in these examples.
 
-Your feedback on the examples is welcome at Intel MKL Forum site:
+Your feedback on the examples is welcome at Intel(R) MKL Forum site:
 http://software.intel.com/en-us/forums/intel-math-kernel-library
 
 

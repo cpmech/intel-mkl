@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright 2012-2020 Intel Corporation.
+* Copyright 2012-2019 Intel Corporation.
 *
 * This software and the related documents are Intel copyrighted  materials,  and
 * your use of  them is  governed by the  express license  under which  they were
@@ -84,7 +84,7 @@ int run_dft
     status = DftiSetValue(hand, DFTI_THREAD_LIMIT, tlimit);
     if (status != DFTI_NO_ERROR) goto failed;
 
-    /* If tlimit > 1 check if we linked with sequential Intel(R) Math Kernel Library (Intel(R) MKL) */
+    /* If tlimit > 1 check if we linked with sequential Intel(R) MKL */
     if (tlimit > 1) {
         /* Get thread limit of uncommitted descriptor */
         MKL_LONG tl;
@@ -156,7 +156,7 @@ int main()
     omp_set_dynamic(0);
 #endif
 
-    /* Enable threading of Intel MKL called from OpenMP parallel sections */
+    /* Enable threading of Intel(R) MKL called from OpenMP parallel sections */
     MKL_Set_Dynamic(0);
 
     DftiGetValue(0, DFTI_VERSION, version);

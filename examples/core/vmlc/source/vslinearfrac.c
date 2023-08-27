@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright 2001-2020 Intel Corporation.
+* Copyright 2001-2019 Intel Corporation.
 *
 * This software and the related documents are Intel copyrighted  materials,  and
 * your use of  them is  governed by the  express license  under which  they were
@@ -22,9 +22,6 @@
 
 #include "_rms.h"
 
-#define INCA 3
-#define INCB 5
-
 int main()
 {
   float fA[10],fB[10];
@@ -33,13 +30,6 @@ int main()
   float           fBep1[10],fBep2[10];
   float fScale, fShift;
   float CurRMS,MaxRMS=0.0;
-
-  float fA_I[10*INCA],fB_I[10*INCB];
-  float fBha0_I[10*INCB],fBha1_I[10*INCB],fBha2_I[10*INCB];
-  float                  fBla1_I[10*INCB],fBla2_I[10*INCB];
-  float                  fBep1_I[10*INCB],fBep2_I[10*INCB];
-  float CurRMS_I,MaxRMS_I=0.0;
-  MKL_INT inca=INCA,incb=INCB;
 
   MKL_INT i=0,vec_len=10;
 
@@ -66,43 +56,26 @@ int main()
   fScale = 1.0000000000000000e+000;
   fShift = 0.0000000000000000e+000;
 
-  for(i=0;i<10;i++) {
-    fA_I[i*inca]=fA[i];
-    fB_I[i*incb]=fB[i];
-  }
-
   vsLinearFrac(vec_len,fA,fA,fScale,fShift,fScale,fShift,fBha0);
-  vsLinearFracI(vec_len,fA_I,inca,fA_I,inca,fScale,fShift,fScale,fShift,fBha0_I,incb);
 
   vmsLinearFrac(vec_len,fA,fA,fScale,fShift,fScale,fShift,fBep1,VML_EP);
-  vmsLinearFracI(vec_len,fA_I,inca,fA_I,inca,fScale,fShift,fScale,fShift,fBep1_I,incb,VML_EP);
 
   vmlSetMode(VML_EP);
   vsLinearFrac(vec_len,fA,fA,fScale,fShift,fScale,fShift,fBep2);
-  vsLinearFracI(vec_len,fA_I,inca,fA_I,inca,fScale,fShift,fScale,fShift,fBep2_I,incb);
 
   vmsLinearFrac(vec_len,fA,fA,fScale,fShift,fScale,fShift,fBla1,VML_LA);
-  vmsLinearFracI(vec_len,fA_I,inca,fA_I,inca,fScale,fShift,fScale,fShift,fBla1_I,incb,VML_LA);
 
   vmlSetMode(VML_LA);
   vsLinearFrac(vec_len,fA,fA,fScale,fShift,fScale,fShift,fBla2);
-  vsLinearFracI(vec_len,fA_I,inca,fA_I,inca,fScale,fShift,fScale,fShift,fBla2_I,incb);
 
   vmsLinearFrac(vec_len,fA,fA,fScale,fShift,fScale,fShift,fBha1,VML_HA);
-  vmsLinearFracI(vec_len,fA_I,inca,fA_I,inca,fScale,fShift,fScale,fShift,fBha1_I,incb,VML_HA);
 
   vmlSetMode(VML_HA);
   vsLinearFrac(vec_len,fA,fA,fScale,fShift,fScale,fShift,fBha2);
-  vsLinearFracI(vec_len,fA_I,inca,fA_I,inca,fScale,fShift,fScale,fShift,fBha2_I,incb);
 
   for(i=0;i<10;i++) {
     if(fBha0[i]!=fBha1[i] || fBha1[i]!=fBha2[i]) {
       printf("Error! Difference between vsLinearFrac and vmsLinearFrac in VML_HA mode detected.\n");
-      return 1;
-    }
-
-    if(fBha0_I[i*incb]!=fBha1_I[i*incb] || fBha1_I[i*incb]!=fBha2_I[i*incb]) {
-      printf("Error! Difference between vsLinearFracI and vmsLinearFracI in VML_HA mode detected.\n");
       return 1;
     }
 
@@ -111,18 +84,8 @@ int main()
       return 1;
     }
 
-    if(fBla1_I[i*incb]!=fBla2_I[i*incb]) {
-      printf("Error! Difference between vsLinearFracI and vmsLinearFracI in VML_LA mode detected.\n");
-      return 1;
-    }
-
     if(fBep1[i]!=fBep2[i]) {
       printf("Error! Difference between vsLinearFrac and vmsLinearFrac in VML_EP mode detected.\n");
-      return 1;
-    }
-
-    if(fBep1_I[i*incb]!=fBep2_I[i*incb]) {
-      printf("Error! Difference between vsLinearFracI and vmsLinearFracI in VML_EP mode detected.\n");
       return 1;
     }
   }
@@ -137,16 +100,6 @@ int main()
     if(CurRMS>MaxRMS) MaxRMS=CurRMS;
   }
   printf("\n");
-  printf("vsLinearFracI test/example program\n\n");
-  printf("Scalar Parameters: ScaleA = ScaleB = %.4f, ShiftA = ShiftB = %.4f\n\n", fScale, fShift);
-  printf("                     Arguments                               vsLinearFrac\n");
-  printf("===============================================================================\n");
-  for(i=0;i<10;i++) {
-    printf("% 25.14f % 25.14f % 25.14e\n",fA_I[i*inca],fA_I[i*inca],fBha0_I[i*incb]);
-    CurRMS_I=srelerr(fB_I[i*incb],fBha0_I[i*incb]);
-    if(CurRMS_I>MaxRMS_I) MaxRMS_I=CurRMS_I;
-  }
-  printf("\n");
   if(MaxRMS>=1e-3) {
     printf("Error! Relative accuracy is %.16f\n",MaxRMS);
     return 1;
@@ -155,14 +108,5 @@ int main()
     printf("Relative accuracy is %.16f\n",MaxRMS);
   }
 
-  printf("\n");
-
-  if(MaxRMS_I>=1e-3) {
-    printf("Error! Relative strided accuracy is %.16f\n",MaxRMS_I);
-    return 1;
-  }
-  else {
-    printf("Relative strided accuracy is %.16f\n",MaxRMS_I);
-  }
   return 0;
 }

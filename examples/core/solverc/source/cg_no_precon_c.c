@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright 2005-2020 Intel Corporation.
+* Copyright 2005-2019 Intel Corporation.
 *
 * This software and the related documents are Intel copyrighted  materials,  and
 * your use of  them is  governed by the  express license  under which  they were
@@ -14,9 +14,8 @@
 
 /*
 !
-!  Content: Intel(R) Math Kernel Library (Intel(R) MKL) RCI CG (Conjugate
-!           Gradient method) C example without both preconditioner and
-!           user-defined stopping criteria
+!  Content: Intel(R) MKL RCI CG (Conjugate Gradient method) C example without
+!           both preconditioner and user-defined stopping criteria
 !
 !*******************************************************************************/
 
@@ -172,9 +171,9 @@ getsln:dcg_get (&n, solution, rhs, &rci_request, ipar, dpar, tmp, &itercount);
   euclidean_norm = dnrm2 (&n, expected_sol, &i);
 
   /*-------------------------------------------------------------------------*/
-  /* Release internal Intel MKL memory that might be used for computations         */
+  /* Release internal Intel(R) MKL memory that might be used for computations         */
   /* NOTE: It is important to call the routine below to avoid memory leaks   */
-  /* unless you disable Intel MKL Memory Manager                                   */
+  /* unless you disable Intel(R) MKL Memory Manager                                   */
   /*-------------------------------------------------------------------------*/
   MKL_Free_Buffers ();
 
@@ -192,9 +191,9 @@ getsln:dcg_get (&n, solution, rhs, &rci_request, ipar, dpar, tmp, &itercount);
       return 1;
     }
   /*-------------------------------------------------------------------------*/
-  /* Release internal Intel MKL memory that might be used for computations         */
+  /* Release internal Intel(R) MKL memory that might be used for computations         */
   /* NOTE: It is important to call the routine below to avoid memory leaks   */
-  /* unless you disable Intel MKL Memory Manager                                   */
+  /* unless you disable Intel(R) MKL Memory Manager                                   */
   /*-------------------------------------------------------------------------*/
 failure:printf ("This example FAILED as the solver has returned the ERROR code %d", rci_request);
   mkl_sparse_destroy(csrA);

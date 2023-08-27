@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright 1999-2020 Intel Corporation.
+* Copyright 1999-2019 Intel Corporation.
 *
 * This software and the related documents are Intel copyrighted  materials,  and
 * your use of  them is  governed by the  express license  under which  they were
@@ -66,7 +66,6 @@ int GetCblasCharParameters(FILE *in_file, ...);
 MKL_INT MaxValue(MKL_INT, MKL_INT*);
 MKL_INT GetVectorI(FILE*, MKL_INT, MKL_INT*);
 MKL_INT GetVectorI32(FILE*, MKL_INT, MKL_INT32*);
-MKL_INT GetVectorBF16(FILE*, MKL_INT, MKL_BF16*, MKL_INT);
 MKL_INT GetVectorS(FILE*, MKL_INT, float*, MKL_INT);
 MKL_INT GetVectorC(FILE*, MKL_INT, MKL_Complex8*, MKL_INT);
 MKL_INT GetVectorD(FILE*, MKL_INT, double*, MKL_INT);
@@ -74,12 +73,10 @@ MKL_INT GetVectorZ(FILE*, MKL_INT, MKL_Complex16*, MKL_INT);
 MKL_INT GetArrayI8(FILE*, CBLAS_LAYOUT*, MKL_INT, MKL_INT*, MKL_INT*, MKL_INT8*, MKL_INT*);
 MKL_INT GetArrayI16(FILE*, CBLAS_LAYOUT*, MKL_INT, MKL_INT*, MKL_INT*, MKL_INT16*, MKL_INT*);
 MKL_INT GetArrayI32(FILE*, CBLAS_LAYOUT*, MKL_INT, MKL_INT*, MKL_INT*, MKL_INT32*, MKL_INT*);
-MKL_INT GetArrayBF16(FILE*, CBLAS_LAYOUT*, MKL_INT, MKL_INT*, MKL_INT*, MKL_BF16*, MKL_INT*);
 MKL_INT GetArrayS(FILE*, CBLAS_LAYOUT*, MKL_INT, MKL_INT*, MKL_INT*, float*, MKL_INT*);
 MKL_INT GetArrayD(FILE*, CBLAS_LAYOUT*, MKL_INT, MKL_INT*, MKL_INT*, double*, MKL_INT*);
 MKL_INT GetArrayC(FILE*, CBLAS_LAYOUT*, MKL_INT, MKL_INT*, MKL_INT*, MKL_Complex8*, MKL_INT*);
 MKL_INT GetArrayZ(FILE*, CBLAS_LAYOUT*, MKL_INT, MKL_INT*, MKL_INT*, MKL_Complex16*, MKL_INT*);
-MKL_INT GetBandArrayBF16(FILE*, CBLAS_LAYOUT*, MKL_INT, MKL_INT, MKL_INT, MKL_INT, MKL_BF16*, MKL_INT);
 MKL_INT GetBandArrayS(FILE*, CBLAS_LAYOUT*, MKL_INT, MKL_INT, MKL_INT, MKL_INT, float*, MKL_INT);
 MKL_INT GetBandArrayD(FILE*, CBLAS_LAYOUT*, MKL_INT, MKL_INT, MKL_INT, MKL_INT, double*, MKL_INT);
 MKL_INT GetBandArrayC(FILE*, CBLAS_LAYOUT*, MKL_INT, MKL_INT, MKL_INT, MKL_INT, MKL_Complex8*, MKL_INT);
@@ -88,7 +85,6 @@ MKL_INT GetValuesI8(FILE*, MKL_INT8*, MKL_INT, MKL_INT, MKL_INT);
 MKL_INT GetValuesI16(FILE*, MKL_INT16*, MKL_INT, MKL_INT, MKL_INT);
 MKL_INT GetValuesI32(FILE*, MKL_INT32*, MKL_INT, MKL_INT, MKL_INT);
 MKL_INT GetValuesI(FILE *, MKL_INT*, MKL_INT, MKL_INT);
-MKL_INT GetValuesBF16(FILE *, MKL_BF16*, MKL_INT, MKL_INT, MKL_INT);
 MKL_INT GetValuesC(FILE *, MKL_Complex8*, MKL_INT, MKL_INT, MKL_INT);
 MKL_INT GetValuesZ(FILE *, MKL_Complex16*, MKL_INT, MKL_INT, MKL_INT);
 MKL_INT GetValuesD(FILE *, double*, MKL_INT, MKL_INT, MKL_INT);
@@ -96,7 +92,6 @@ MKL_INT GetValuesS(FILE *, float*, MKL_INT, MKL_INT, MKL_INT);
 void PrintParameters( char*, ... );
 void PrintVectorI(MKL_INT, MKL_INT*, char*);
 void PrintVectorI32(MKL_INT, MKL_INT32*, char*);
-void PrintVectorBF16(int, MKL_INT, MKL_BF16*, MKL_INT, char*);
 void PrintVectorS(int, MKL_INT, float*, MKL_INT, char*);
 void PrintVectorC(int, MKL_INT, MKL_Complex8*, MKL_INT, char*);
 void PrintVectorD(int, MKL_INT, double*, MKL_INT, char*);
@@ -104,12 +99,10 @@ void PrintVectorZ(int, MKL_INT, MKL_Complex16*,  MKL_INT, char*);
 void PrintArrayI8(CBLAS_LAYOUT*, int, int, MKL_INT*, MKL_INT*, MKL_INT8*, MKL_INT*, char*);
 void PrintArrayI16(CBLAS_LAYOUT*, int, int, MKL_INT*, MKL_INT*, MKL_INT16*, MKL_INT*, char*);
 void PrintArrayI32(CBLAS_LAYOUT*, int, int, MKL_INT*, MKL_INT*, MKL_INT32*, MKL_INT*, char*);
-void PrintArrayBF16(CBLAS_LAYOUT*, int, int, MKL_INT*, MKL_INT*, MKL_BF16*, MKL_INT*, char*);
 void PrintArrayS(CBLAS_LAYOUT*, int, int, MKL_INT*, MKL_INT*, float*, MKL_INT*, char*);
 void PrintArrayD(CBLAS_LAYOUT*, int, int, MKL_INT*, MKL_INT*, double*, MKL_INT*, char*);
 void PrintArrayC(CBLAS_LAYOUT*, int, int, MKL_INT*, MKL_INT*, MKL_Complex8*, MKL_INT*, char*);
 void PrintArrayZ(CBLAS_LAYOUT*, int, int, MKL_INT*, MKL_INT*, MKL_Complex16*, MKL_INT*, char*);
-void PrintBandArrayBF16(CBLAS_LAYOUT*, int, MKL_INT, MKL_INT, MKL_INT, MKL_INT, MKL_BF16*, MKL_INT, char*);
 void PrintBandArrayS(CBLAS_LAYOUT*, int, MKL_INT, MKL_INT, MKL_INT, MKL_INT, float*, MKL_INT, char*);
 void PrintBandArrayD(CBLAS_LAYOUT*, int, MKL_INT, MKL_INT, MKL_INT, MKL_INT, double*, MKL_INT, char*);
 void PrintBandArrayC(CBLAS_LAYOUT*, int, MKL_INT, MKL_INT, MKL_INT, MKL_INT, MKL_Complex8*, MKL_INT, char*);

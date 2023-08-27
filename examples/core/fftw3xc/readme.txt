@@ -1,5 +1,5 @@
 !===============================================================================
-! Copyright 2011-2020 Intel Corporation.
+! Copyright 2011-2019 Intel Corporation.
 !
 ! This software and the related documents are Intel copyrighted  materials,  and
 ! your use of  them is  governed by the  express license  under which  they were
@@ -19,8 +19,7 @@ Each example is a self-contained C program.
 
 The examples are named by the name of the plan function they use.  Prefixes dp_
 and sp_ indicate the floating point precision used in the example, double or
-single precision, respectively.  For the FFT problems that
-Intel(R) Math Kernel Library (Intel(R) MKL) does not support
+single precision, respectively.  For the FFT problems that Intel(R) MKL does not support
 examples are not provided.
 
 For every FFT computed in the example an initialization and verification
@@ -32,10 +31,10 @@ Every example uses dynamically allocated arrays for the data.  Sizes of the
 transforms and parameters for verification are selected randomly.
 
 Refer to FFTW3 documentation for detailed description of the functions used in
-these examples.  Refer to Intel MKL Reference Manual for limitations of the FFTW3
+these examples.  Refer to Intel(R) MKL Reference Manual for limitations of the FFTW3
 interface provided by Intel MKL.
 
-Your feedback on the examples is welcome at Intel MKL Forum site:
+Your feedback on the examples is welcome at Intel(R) MKL Forum site:
 http://software.intel.com/en-us/forums/intel-math-kernel-library
 
 

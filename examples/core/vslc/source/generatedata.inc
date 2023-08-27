@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright 2003-2020 Intel Corporation.
+* Copyright 2003-2019 Intel Corporation.
 *
 * This software and the related documents are Intel copyrighted  materials,  and
 * your use of  them is  governed by the  express license  under which  they were
@@ -506,7 +506,7 @@ int dGenerateMissingValuesInput( double *x, MKL_INT dim, MKL_INT n, int epsilon,
     double av_weight, threshold, eps;
     long long iNAN;
     double    dNAN;
-    double floor;
+    double t, floor;
     MKL_INT nmv = 0;
     int i, j, ipatt, errcode;
     double *xt;
@@ -598,7 +598,7 @@ int sGenerateMissingValuesInput( float *x, MKL_INT dim, MKL_INT n, int epsilon,
     float av_weight, threshold, eps;
     long  iNAN;
     float sNAN;
-    float floor;
+    float t, floor;
     MKL_INT nmv = 0;
     int i, j, ipatt, errcode;
     float *xt;

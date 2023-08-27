@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright 2005-2020 Intel Corporation.
+* Copyright 2005-2019 Intel Corporation.
 *
 * This software and the related documents are Intel copyrighted  materials,  and
 * your use of  them is  governed by the  express license  under which  they were
@@ -14,8 +14,7 @@
 
 /*
 ! Content:
-!     Intel(R) Math Kernel Library (Intel(R) MKL) Cluster DFT interface
-!     example program (C-interface)
+!     Intel(R) MKL Cluster DFT interface example program (C-interface)
 !
 !     Examples support function set
 !

@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright 2005-2020 Intel Corporation.
+* Copyright 2005-2019 Intel Corporation.
 *
 * This software and the related documents are Intel copyrighted  materials,  and
 * your use of  them is  governed by the  express license  under which  they were
@@ -13,11 +13,11 @@
 *******************************************************************************/
 
 /*
-!   Content : Intel(R) Math Kernel Library (Intel(R) MKL) Sparse BLAS C example
+!   Content : Intel(R) MKL Sparse BLAS C example
 !
 !*******************************************************************************
 !
-! Example program for using Intel MKL Sparse BLAS Level 2 and 3
+! Example program for using Intel(R) MKL Sparse BLAS Level 2 and 3
 ! for matrices represented in the compressed sparse row storage scheme
 ! with zero-based indexing.
 ! The following Sparse  Blas routines are used in the example:
@@ -61,7 +61,7 @@
 !         colIndex  = (0  3  5  8  11 13)
 !
 !  It should be noted that two variations of the compressed sparse row storage scheme are supported by
-!  Intel MKL Sparse Blas (see 'Sparse Storage Formats for Sparse Blas level 2-3') :
+!  Intel(R) MKL Sparse Blas (see 'Sparse Storage Formats for Sparse Blas level 2-3') :
 !
 !        1. variation accepted in the NIST Sparse Blas
 !        2. variation is the Harwell-Boeing sparse matrix format.

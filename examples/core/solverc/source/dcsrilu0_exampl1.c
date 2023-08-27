@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright 2006-2020 Intel Corporation.
+* Copyright 2006-2019 Intel Corporation.
 *
 * This software and the related documents are Intel copyrighted  materials,  and
 * your use of  them is  governed by the  express license  under which  they were
@@ -14,8 +14,8 @@
 
 /*
 *  Content:
-*  Intel(R) Math Kernel Library (Intel(R) MKL) example of RCI Flexible
-*  Generalized Minimal RESidual method with ILU0 Preconditioner
+*  Intel(R) MKL example of RCI Flexible Generalized Minimal RESidual method with
+*  ILU0 Preconditioner
 ********************************************************************************
 
 *---------------------------------------------------------------------------
@@ -118,7 +118,7 @@ int main (void)
 * ipar[5] = 1 - allow output of errors,
 * ipar[30]= 0 - abort DCSRILU0 calculations if routine meets zero diagonal element.
 *
-* If ILU0 is going to be used out of Intel MKL FGMRES context, than the values
+* If ILU0 is going to be used out of Intel(R) MKL FGMRES context, than the values
 * of ipar[1], ipar[5], ipar[30], dpar[30], and dpar[31] should be user
 * provided before the DCSRILU0 routine call.
 *
@@ -279,7 +279,7 @@ ONE:dfgmres (&ivar, computed_solution, rhs, &RCI_request, ipar, dpar, tmp);
       ipar[12] = 1;
       /* Get the current FGMRES solution in the vector b[N] */
       dfgmres_get (&ivar, computed_solution, b, &RCI_request, ipar, dpar, tmp, &itercount);
-      /* Compute the current true residual via Intel MKL (Sparse) BLAS routines */
+      /* Compute the current true residual via Intel(R) MKL (Sparse) BLAS routines */
       mkl_sparse_d_mv( transA, 1.0, csrA, descrA, b, 0.0, residual);
       dvar = -1.0E0;
       i = 1;
@@ -298,7 +298,7 @@ ONE:dfgmres (&ivar, computed_solution, rhs, &RCI_request, ipar, dpar, tmp);
   * therefore, in C code it is required to subtract 1 from them to get C style
   * addresses
   * Here is the recommended usage of the result produced by ILU0 routine
-  * via standard Intel MKL Sparse Blas solver routine mkl_dcsrtrsv.
+  * via standard Intel(R) MKL Sparse Blas solver routine mkl_dcsrtrsv.
   *---------------------------------------------------------------------------*/
   if (RCI_request == 3)
     {
@@ -361,9 +361,9 @@ COMPLETE:ipar[12] = 0;
   printf ("\n");
 
   /*-------------------------------------------------------------------------*/
-  /* Release internal Intel MKL memory that might be used for computations         */
+  /* Release internal Intel(R) MKL memory that might be used for computations         */
   /* NOTE: It is important to call the routine below to avoid memory leaks   */
-  /* unless you disable Intel MKL Memory Manager                                   */
+  /* unless you disable Intel(R) MKL Memory Manager                                   */
   /*-------------------------------------------------------------------------*/
   MKL_Free_Buffers ();
 
@@ -394,9 +394,9 @@ FAILED1:
   printf ("Unfortunately, FGMRES+ILU0 C example has FAILED\n");
   printf ("-------------------------------------------------------------------\n");
   /*-------------------------------------------------------------------------*/
-  /* Release internal Intel MKL memory that might be used for computations         */
+  /* Release internal Intel(R) MKL memory that might be used for computations         */
   /* NOTE: It is important to call the routine below to avoid memory leaks   */
-  /* unless you disable Intel MKL Memory Manager                                   */
+  /* unless you disable Intel(R) MKL Memory Manager                                   */
   /*-------------------------------------------------------------------------*/
   mkl_sparse_destroy(csrA);
   mkl_sparse_destroy(csrL);

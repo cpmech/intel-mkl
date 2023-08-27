@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright 2004-2020 Intel Corporation.
+* Copyright 2004-2019 Intel Corporation.
 *
 * This software and the related documents are Intel copyrighted  materials,  and
 * your use of  them is  governed by the  express license  under which  they were
@@ -13,12 +13,11 @@
 *******************************************************************************/
 
 /*
-*   Content : Intel(R) Math Kernel Library (Intel(R) MKL) Sparse format
-*             converters C example
+*   Content : Intel(R) MKL Sparse format converters C example
 *
 ********************************************************************************
 *
-* Example program for using Intel MKL Sparse format converters
+* Example program for using Intel(R) MKL Sparse format converters
 * The following Sparse  Sparse format converters are used in the example:
 *
 *          MKL_CDNSCSR

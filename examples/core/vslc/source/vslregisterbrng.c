@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright 2003-2020 Intel Corporation.
+* Copyright 2003-2019 Intel Corporation.
 *
 * This software and the related documents are Intel copyrighted  materials,  and
 * your use of  them is  governed by the  express license  under which  they were
@@ -164,6 +164,7 @@ static unsigned int Mod( unsigned int a, unsigned int b )
 
 static unsigned int PowMod( unsigned int a, int n )
 {
+    unsigned int a2;
     unsigned int r;  /* result */
 
     r = 1;
@@ -189,6 +190,8 @@ int MinStdInitStream( int method, VSLStreamStatePtr stream, int n, const unsigne
 {
     MinStdStreamState*  mstream;
     int                 errcode;
+    double              a2;
+    unsigned int        b1, b2, b;
     unsigned int        seed;
 
     mstream = (MinStdStreamState*)stream;

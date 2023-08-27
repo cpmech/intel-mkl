@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright 2005-2020 Intel Corporation.
+* Copyright 2005-2019 Intel Corporation.
 *
 * This software and the related documents are Intel copyrighted  materials,  and
 * your use of  them is  governed by the  express license  under which  they were
@@ -13,12 +13,11 @@
 *******************************************************************************/
 
 /*
-!   Content : Intel(R) Math Kernel Library (Intel(R) MKL) Extended Eigensolvers
-!             C example
+!   Content : Intel(R) MKL Extended Eigensolvers C example
 !
 !*******************************************************************************
 !
-! Example program for using Intel MKL Extended Eigensolvers (sparse format).
+! Example program for using Intel(R) MKL Extended Eigensolvers (sparse format).
 !
 ! The following routines are used in the example:
 !          CGEMM MKL_SPARSE_C_MM MKL_SPARSE_C_ADD CFEAST_HRCI PARDISO.
@@ -81,7 +80,8 @@ int main()
     //!!!!!!!!!!!!!!! Matrix declaration variables !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     const MKL_INT N = 10;
     MKL_Complex8  val[19], nval[19], valb[10], *valz, caux[8*10];
-    MKL_INT       rows[11], cols[19], rowsb[11], colsb[10], *rowsz, *colsz;
+    MKL_INT       rows[11], cols[19], crows[11], ccols[19], rowsb[11], \
+                  colsb[10], *rowsz, *colsz;
 
     //!!!!!!!!!!!!!!! Declaration of Spblas variables !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     //!!! A, B - Handles containing a sparse matrix in internal data structure!!!!!!
@@ -127,13 +127,14 @@ int main()
     //!!! Eig - array for storing exact eigenvalues, R=|E-Eig|, Y=(X')*X-I !!!!!!!!!
     float         Eig[10];
     float         R[10];
-    MKL_Complex8  Y[100];
+    MKL_Complex8  Y[10][10];
     MKL_INT       i,j;
     MKL_INT       ldx = 10, ldy = 10;
     float         trace;
     float         smax, eigabs, t1;
     char          CGEMMC = 'C', CGEMMN = 'N';
     MKL_Complex8  one, zero;
+    MKL_INT       ione = 1;
     MKL_INT       colsX, imem;
 
     printf("\n    FEAST CFEAST_HRCI EXAMPLE PROGRAM\n");
@@ -433,7 +434,7 @@ int main()
 
     //          Compute Y=Y-I.
     for ( i=0; i<M; i++ )
-        Y[i*M + i].real=Y[i*M + i].real-(float)1.0;
+        Y[i][i].real=Y[i][i].real-(float)1.0;
 
     printf("*************************************************\n");
     printf("************** REPORT ***************************\n");
@@ -458,7 +459,7 @@ int main()
     {
         for ( j=0; j<M; j++ )
         {
-            t1 = sqrt(Y[i*M + j].imag*Y[i*M + j].imag+Y[i*M + j].real*Y[i*M + j].real);
+            t1 = sqrt(Y[i][j].imag*Y[i][j].imag+Y[i][j].real*Y[i][j].real);
             smax = max(smax, t1);
         }
     }

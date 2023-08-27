@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright 2001-2020 Intel Corporation.
+* Copyright 2001-2019 Intel Corporation.
 *
 * This software and the related documents are Intel copyrighted  materials,  and
 * your use of  them is  governed by the  express license  under which  they were
@@ -22,9 +22,6 @@
 
 #include "_rms.h"
 
-#define INCA 3
-#define INCB 5
-
 int main()
 {
   MKL_Complex16 zA[10],zB[10];
@@ -32,13 +29,6 @@ int main()
   MKL_Complex16           zBla1[10],zBla2[10];
   MKL_Complex16           zBep1[10],zBep2[10];
   float CurRMS,MaxRMS=0.0;
-
-  MKL_Complex16 zA_I[10*INCA],zB_I[10*INCB];
-  MKL_Complex16 zBha0_I[10*INCB],zBha1_I[10*INCB],zBha2_I[10*INCB];
-  MKL_Complex16                  zBla1_I[10*INCB],zBla2_I[10*INCB];
-  MKL_Complex16                  zBep1_I[10*INCB],zBep2_I[10*INCB];
-  float CurRMS_I,MaxRMS_I=0.0;
-  MKL_INT inca=INCA,incb=INCB;
 
   MKL_INT i=0,vec_len=10;
 
@@ -63,45 +53,26 @@ int main()
   zB[8].real=5.3354333100097443e-008;zB[8].imag=-1.0000003470018055e+000;
   zB[9].real=3.7634408149196452e-009;zB[9].imag=-9.9999999831776032e-001;
 
-  for(i=0;i<10;i++) {
-    zA_I[i*inca]=zA[i];
-    zB_I[i*incb]=zB[i];
-  }
-
   vzTan(vec_len,zA,zBha0);
-  vzTanI(vec_len,zA_I,inca,zBha0_I,incb);
 
   vmzTan(vec_len,zA,zBep1,VML_EP);
-  vmzTanI(vec_len,zA_I,inca,zBep1_I,incb,VML_EP);
 
   vmlSetMode(VML_EP);
   vzTan(vec_len,zA,zBep2);
-  vzTanI(vec_len,zA_I,inca,zBep2_I,incb);
 
   vmzTan(vec_len,zA,zBla1,VML_LA);
-  vmzTanI(vec_len,zA_I,inca,zBla1_I,incb,VML_LA);
 
   vmlSetMode(VML_LA);
   vzTan(vec_len,zA,zBla2);
-  vzTanI(vec_len,zA_I,inca,zBla2_I,incb);
 
   vmzTan(vec_len,zA,zBha1,VML_HA);
-  vmzTanI(vec_len,zA_I,inca,zBha1_I,incb,VML_HA);
 
   vmlSetMode(VML_HA);
   vzTan(vec_len,zA,zBha2);
-  vzTanI(vec_len,zA_I,inca,zBha2_I,incb);
 
   for(i=0;i<10;i++) {
-    if(zBha0[i].real!=zBha1[i].real || zBha0[i].imag!=zBha1[i].imag || zBha1[i].real!=zBha2[i].real ||
-        zBha1[i].imag!=zBha2[i].imag) {
+    if(zBha0[i].real!=zBha1[i].real || zBha0[i].imag!=zBha1[i].imag || zBha1[i].real!=zBha2[i].real || zBha1[i].imag!=zBha2[i].imag) {
       printf("Error! Difference between vzTan and vmzTan in VML_HA mode detected.\n");
-      return 1;
-    }
-
-    if(zBha0_I[i*incb].real!=zBha1_I[i*incb].real || zBha0_I[i*incb].imag!=zBha1_I[i*incb].imag ||
-        zBha1_I[i*incb].real!=zBha2_I[i*incb].real || zBha1_I[i*incb].imag!=zBha2_I[i*incb].imag) {
-      printf("Error! Difference between vzTanI and vmzTanI in VML_HA mode detected.\n");
       return 1;
     }
 
@@ -110,18 +81,8 @@ int main()
       return 1;
     }
 
-    if(zBla1_I[i*incb].real!=zBla2_I[i*incb].real || zBla1_I[i*incb].imag!=zBla2_I[i*incb].imag) {
-      printf("Error! Difference between vzTanI and vmzTanI in VML_LA mode detected.\n");
-      return 1;
-    }
-
     if(zBep1[i].real!=zBep2[i].real || zBep1[i].imag!=zBep2[i].imag) {
       printf("Error! Difference between vzTan and vmzTan in VML_EP mode detected.\n");
-      return 1;
-    }
-
-    if(zBep1_I[i*incb].real!=zBep2_I[i*incb].real || zBep1_I[i*incb].imag!=zBep2_I[i*incb].imag) {
-      printf("Error! Difference between vzTanI and vmzTanI in VML_EP mode detected.\n");
       return 1;
     }
   }
@@ -135,16 +96,6 @@ int main()
     if(CurRMS>MaxRMS) MaxRMS=CurRMS;
   }
   printf("\n");
-  printf("vzTanI test/example program\n\n");
-  printf("           Argument                           vzTan\n");
-  printf("===============================================================================\n");
-  for(i=0;i<10;i++) {
-    printf("   % .4f %+.4f*i      % .10f %+.10f*i\n",zA_I[i*inca].real,zA_I[i*inca].imag,zBha0_I[i*incb].real,
-        zBha0_I[i*incb].imag);
-    CurRMS_I=zrelerr(zB_I[i*incb],zBha0_I[i*incb]);
-    if(CurRMS_I>MaxRMS_I) MaxRMS_I=CurRMS_I;
-  }
-  printf("\n");
   if(MaxRMS>=1e-14) {
     printf("Error! Relative accuracy is %.16f\n",MaxRMS);
     return 1;
@@ -153,14 +104,5 @@ int main()
     printf("Relative accuracy is %.16f\n",MaxRMS);
   }
 
-  printf("\n");
-
-  if(MaxRMS_I>=1e-14) {
-    printf("Error! Relative strided accuracy is %.16f\n",MaxRMS_I);
-    return 1;
-  }
-  else {
-    printf("Relative strided accuracy is %.16f\n",MaxRMS_I);
-  }
   return 0;
 }

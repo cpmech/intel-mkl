@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright 2004-2020 Intel Corporation.
+* Copyright 2004-2019 Intel Corporation.
 *
 * This software and the related documents are Intel copyrighted  materials,  and
 * your use of  them is  governed by the  express license  under which  they were
@@ -161,9 +161,9 @@ MKL_INT main (void)
     }
 
     /*----------------------------------------------------------------------------------
-    ** Release internal Intel(R) Math Kernel Library (Intel(R) MKL) memory that might have been used for computations  
+    ** Release internal Intel(R) MKL memory that might have been used for computations  
     ** NOTE: It is important to call the routine below to avoid memory leaks            
-    ** unless you disable Intel MKL Memory Manager                                      
+    ** unless you disable Intel(R) MKL Memory Manager                                      
     **--------------------------------------------------------------------------------*/
     return finalize( pt, maxfct, mnum, mtype, phase, n, nrhs, iparm, msglvl, 
                      u, us, f, fs, a, ia, ja, error);

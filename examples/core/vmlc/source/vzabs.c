@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright 2001-2020 Intel Corporation.
+* Copyright 2001-2019 Intel Corporation.
 *
 * This software and the related documents are Intel copyrighted  materials,  and
 * your use of  them is  governed by the  express license  under which  they were
@@ -22,9 +22,6 @@
 
 #include "_rms.h"
 
-#define INCA 3
-#define INCB 5
-
 int main()
 {
   MKL_Complex16 zA[10];
@@ -33,14 +30,6 @@ int main()
   double           dBla1[10],dBla2[10];
   double           dBep1[10],dBep2[10];
   float CurRMS,MaxRMS=0.0;
-
-  MKL_Complex16 zA_I[10*INCA];
-  double dB_I[10*INCB];
-  double dBha0_I[10*INCB],dBha1_I[10*INCB],dBha2_I[10*INCB];
-  double                  dBla1_I[10*INCB],dBla2_I[10*INCB];
-  double                  dBep1_I[10*INCB],dBep2_I[10*INCB];
-  float CurRMS_I,MaxRMS_I=0.0;
-  MKL_INT inca=INCA,incb=INCB;
 
   MKL_INT i=0,vec_len=10;
 
@@ -65,43 +54,26 @@ int main()
   dB[8]=1.0999437718513525e+003;
   dB[9]=1.4142135623730951e+003;
 
-  for(i=0;i<10;i++) {
-    zA_I[i*inca]=zA[i];
-    dB_I[i*incb]=dB[i];
-  }
-
   vzAbs(vec_len,zA,dBha0);
-  vzAbsI(vec_len,zA_I,inca,dBha0_I,incb);
 
   vmzAbs(vec_len,zA,dBep1,VML_EP);
-  vmzAbsI(vec_len,zA_I,inca,dBep1_I,incb,VML_EP);
 
   vmlSetMode(VML_EP);
   vzAbs(vec_len,zA,dBep2);
-  vzAbsI(vec_len,zA_I,inca,dBep2_I,incb);
 
   vmzAbs(vec_len,zA,dBla1,VML_LA);
-  vmzAbsI(vec_len,zA_I,inca,dBla1_I,incb,VML_LA);
 
   vmlSetMode(VML_LA);
   vzAbs(vec_len,zA,dBla2);
-  vzAbsI(vec_len,zA_I,inca,dBla2_I,incb);
 
   vmzAbs(vec_len,zA,dBha1,VML_HA);
-  vmzAbsI(vec_len,zA_I,inca,dBha1_I,incb,VML_HA);
 
   vmlSetMode(VML_HA);
   vzAbs(vec_len,zA,dBha2);
-  vzAbsI(vec_len,zA_I,inca,dBha2_I,incb);
 
   for(i=0;i<10;i++) {
     if(dBha0[i]!=dBha1[i] || dBha1[i]!=dBha2[i]) {
       printf("Error! Difference between vzAbs and vmzAbs in VML_HA mode detected.\n");
-      return 1;
-    }
-
-    if(dBha0_I[i*incb]!=dBha1_I[i*incb] || dBha1_I[i*incb]!=dBha2_I[i*incb]) {
-      printf("Error! Difference between vzAbsI and vmzAbsI in VML_HA mode detected.\n");
       return 1;
     }
 
@@ -110,18 +82,8 @@ int main()
       return 1;
     }
 
-    if(dBla1_I[i*incb]!=dBla2_I[i*incb]) {
-      printf("Error! Difference between vzAbsI and vmzAbsI in VML_LA mode detected.\n");
-      return 1;
-    }
-
     if(dBep1[i]!=dBep2[i]) {
       printf("Error! Difference between vzAbs and vmzAbs in VML_EP mode detected.\n");
-      return 1;
-    }
-
-    if(dBep1_I[i*incb]!=dBep2_I[i*incb]) {
-      printf("Error! Difference between vzAbsI and vmzAbsI in VML_EP mode detected.\n");
       return 1;
     }
   }
@@ -135,15 +97,6 @@ int main()
     if(CurRMS>MaxRMS) MaxRMS=CurRMS;
   }
   printf("\n");
-  printf("vzAbsI test/example program\n\n");
-  printf("           Argument                           vzAbs\n");
-  printf("===============================================================================\n");
-  for(i=0;i<10;i++) {
-    printf("   % .4f %+.4f*i      % .10f\n",zA_I[i*inca].real,zA_I[i*inca].imag,dBha0_I[i*incb]);
-    CurRMS_I=drelerr(dB_I[i*incb],dBha0_I[i*incb]);
-    if(CurRMS_I>MaxRMS_I) MaxRMS_I=CurRMS_I;
-  }
-  printf("\n");
   if(MaxRMS>=1e-5) {
     printf("Error! Relative accuracy is %.16f\n",MaxRMS);
     return 1;
@@ -152,14 +105,5 @@ int main()
     printf("Relative accuracy is %.16f\n",MaxRMS);
   }
 
-  printf("\n");
-
-  if(MaxRMS_I>=1e-5) {
-    printf("Error! Relative strided accuracy is %.16f\n",MaxRMS_I);
-    return 1;
-  }
-  else {
-    printf("Relative strided accuracy is %.16f\n",MaxRMS_I);
-  }
   return 0;
 }

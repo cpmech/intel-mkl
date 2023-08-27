@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright 2005-2020 Intel Corporation.
+* Copyright 2005-2019 Intel Corporation.
 *
 * This software and the related documents are Intel copyrighted  materials,  and
 * your use of  them is  governed by the  express license  under which  they were
@@ -13,8 +13,8 @@
 *******************************************************************************/
 
 /*
-!   Content: Example for Intel(R) Math Kernel Library (Intel(R) MKL) Extended
-!            Eigensolvers (sparse format, double precision)
+!   Content: Example for Intel(R) MKL Extended Eigensolvers (sparse format,
+!            double precision)
 !
 !*******************************************************************************
 !
@@ -83,7 +83,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include "mkl.h"
+#include "mkl_solvers_ee.h"
 
 #define max(a, b) (a) < (b) ? (b): (a)
 
@@ -148,7 +148,7 @@ int main()
                             };
 
     /* Declaration of FEAST variables */
-    MKL_INT      fpm[128];      /* Array to pass parameters to Intel MKL Extended Eigensolvers */
+    MKL_INT      fpm[128];      /* Array to pass parameters to Intel(R) MKL Extended Eigensolvers */
     double       Emin, Emax;    /* Lower/upper bound of search interval [Emin,Emax] */
 
     double       epsout;        /* Relative error on the trace */
@@ -165,7 +165,7 @@ int main()
     MKL_INT      info;          /* Errors */
     double       Eig[11];       /* Eig - array for storing exact eigenvalues */
     double       R[11];         /* R = |E-Eig| */
-    double       Y[121];        /* Y=(X')*X-I */
+    double        Y[11][11];     /* Y=(X')*X-I */
 
     char         DGEMMC = 'T';  /* Character for GEMM routine, transposed case */
     char         DGEMMN = 'N';  /* Character for GEMM routine, non-transposed case */
@@ -211,7 +211,7 @@ int main()
 
     /* Step 1. Call  FEASTINIT to define the default values for the input FEAST parameters */
     feastinit(
-        fpm /* OUT: Array is used to pass parameters to Intel MKL Extended Eigensolvers */
+        fpm /* OUT: Array is used to pass parameters to Intel(R) MKL Extended Eigensolvers */
         );
 
     fpm[0] =  1; /* Extended Eigensolver routines print runtime status to the screen. */
@@ -224,7 +224,7 @@ int main()
         val,     /* IN: CSR matrix A, values of non-zero elements */
         rows,    /* IN: CSR matrix A, index of the first non-zero element in row */
         cols,    /* IN: CSR matrix A, columns indices for each non-zero element */
-        fpm,     /* IN/OUT: Array is used to pass parameters to Intel MKL Extended Eigensolvers */
+        fpm,     /* IN/OUT: Array is used to pass parameters to Intel(R) MKL Extended Eigensolvers */
         &epsout, /* OUT: Relative error of on the trace */
         &loop,   /* OUT: Contains the number of refinement loop executed */
         &Emin,   /* IN: Lower bound of search interval */
@@ -282,7 +282,7 @@ int main()
     /* Compute Y = Y - I */
     for (i=0; i<M; i++)
     {
-        Y[i*M + i] -= 1.0;
+        Y[i][i] -= 1.0;
     }
 
     printf("*************************************************\n");
@@ -308,7 +308,7 @@ int main()
     {
         for (j=0; j<M; j++)
         {
-            smax = max(smax, fabs(Y[i*M + j]));
+            smax = max(smax, fabs(Y[i][j]));
         }
     }
     printf( "Max(X' * X - I) = %.15e \n", smax);
@@ -340,7 +340,7 @@ int main()
         valb,    /* IN: CSR matrix B, values of non-zero elements */
         rowsb,   /* IN: CSR matrix B, index of the rist non-zero in row */
         colsb,   /* IN: CSR matrix A, columns indeces for each non-zero element */
-        fpm,     /* IN: Array is used to pass parameters to Intel MKL Extended Eigensolvers */
+        fpm,     /* IN: Array is used to pass parameters to Intel(R) MKL Extended Eigensolvers */
         &epsout, /* OUT: Relative error of on the trace */
         &loop,   /* OUT: Contains the number of refinement loop executed */
         &Emin,   /* IN: Lower bound of search interval */
@@ -398,7 +398,7 @@ int main()
     /* Compute Y = Y - I */
     for (i=0; i<M; i++)
     {
-        Y[i* M + i] -= 1.0;
+        Y[i][i] -= 1.0;
     }
 
     /* Check the orthogonality of X' * X */
@@ -407,7 +407,7 @@ int main()
     {
         for (j=0; j<M; j++)
         {
-            smax = max(smax, fabs(Y[i*M + j]));
+            smax = max(smax, fabs(Y[i][j]));
         }
     }
 

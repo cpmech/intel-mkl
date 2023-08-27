@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright 2011-2020 Intel Corporation.
+* Copyright 2011-2019 Intel Corporation.
 *
 * This software and the related documents are Intel copyrighted  materials,  and
 * your use of  them is  governed by the  express license  under which  they were
@@ -14,8 +14,7 @@
 
 /*
 ! Content:
-! An example of using Intel(R) Math Kernel Library (Intel(R) MKL) DFTI
-! configuration parameter DFTI_COMPLEX_STORAGE.
+! An example of using Intel(R) MKL DFTI configuration parameter DFTI_COMPLEX_STORAGE.
 ! The parameter is used to select how complex data is laid out in memory
 ! (DFTI_FORWARD_DOMAIN = DFTI_COMPLEX is required).
 !

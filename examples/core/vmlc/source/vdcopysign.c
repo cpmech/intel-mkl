@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright 2001-2020 Intel Corporation.
+* Copyright 2001-2019 Intel Corporation.
 *
 * This software and the related documents are Intel copyrighted  materials,  and
 * your use of  them is  governed by the  express license  under which  they were
@@ -22,10 +22,6 @@
 
 #include "_rms.h"
 
-#define INCA 3
-#define INCB 5
-#define INCC 7
-
 int main()
 {
   double dA1[10],dA2[10],dB[10];
@@ -33,13 +29,6 @@ int main()
   double           dBla1[10],dBla2[10];
   double           dBep1[10],dBep2[10];
   float CurRMS,MaxRMS=0.0;
-
-  double dA1_I[10*INCA],dA2_I[10*INCB],dB_I[10*INCC];
-  double dBha0_I[10*INCC],dBha1_I[10*INCC],dBha2_I[10*INCC];
-  double                  dBla1_I[10*INCC],dBla2_I[10*INCC];
-  double                  dBep1_I[10*INCC],dBep2_I[10*INCC];
-  float CurRMS_I,MaxRMS_I=0.0;
-  MKL_INT inca=INCA,incb=INCB,incc=INCC;
 
   MKL_INT i=0,vec_len=10;
 
@@ -74,44 +63,26 @@ int main()
   dB[8]=6.2332999999999998e+00;
   dB[9]=7.0000000000000000e+00;
 
-  for(i=0;i<10;i++) {
-    dA1_I[i*inca]=dA1[i];
-    dA2_I[i*incb]=dA2[i];
-    dB_I[i*incc]=dB[i];
-  }
-
   vdCopySign(vec_len,dA1,dA2,dBha0);
-  vdCopySignI(vec_len,dA1_I,inca,dA2_I,incb,dBha0_I,incc);
 
   vmdCopySign(vec_len,dA1,dA2,dBep1,VML_EP);
-  vmdCopySignI(vec_len,dA1_I,inca,dA2_I,incb,dBep1_I,incc,VML_EP);
 
   vmlSetMode(VML_EP);
   vdCopySign(vec_len,dA1,dA2,dBep2);
-  vdCopySignI(vec_len,dA1_I,inca,dA2_I,incb,dBep2_I,incc);
 
   vmdCopySign(vec_len,dA1,dA2,dBla1,VML_LA);
-  vmdCopySignI(vec_len,dA1_I,inca,dA2_I,incb,dBla1_I,incc,VML_LA);
 
   vmlSetMode(VML_LA);
   vdCopySign(vec_len,dA1,dA2,dBla2);
-  vdCopySignI(vec_len,dA1_I,inca,dA2_I,incb,dBla2_I,incc);
 
   vmdCopySign(vec_len,dA1,dA2,dBha1,VML_HA);
-  vmdCopySignI(vec_len,dA1_I,inca,dA2_I,incb,dBha1_I,incc,VML_HA);
 
   vmlSetMode(VML_HA);
   vdCopySign(vec_len,dA1,dA2,dBha2);
-  vdCopySignI(vec_len,dA1_I,inca,dA2_I,incb,dBha2_I,incc);
 
   for(i=0;i<10;i++) {
     if(dBha0[i]!=dBha1[i] || dBha1[i]!=dBha2[i]) {
       printf("Error! Difference between vdCopySign and vmdCopySign in VML_HA mode detected.\n");
-      return 1;
-    }
-
-    if(dBha0_I[i*incc]!=dBha1_I[i*incc] || dBha1_I[i*incc]!=dBha2_I[i*incc]) {
-      printf("Error! Difference between vdCopySignI and vmdCopySignI in VML_HA mode detected.\n");
       return 1;
     }
 
@@ -120,18 +91,8 @@ int main()
       return 1;
     }
 
-    if(dBla1_I[i*incc]!=dBla2_I[i*incc]) {
-      printf("Error! Difference between vdCopySignI and vmdCopySignI in VML_LA mode detected.\n");
-      return 1;
-    }
-
     if(dBep1[i]!=dBep2[i]) {
       printf("Error! Difference between vdCopySign and vmdCopySign in VML_EP mode detected.\n");
-      return 1;
-    }
-
-    if(dBep1_I[i*incc]!=dBep2_I[i*incc]) {
-      printf("Error! Difference between vdCopySignI and vmdCopySignI in VML_EP mode detected.\n");
       return 1;
     }
   }
@@ -145,15 +106,6 @@ int main()
     if(CurRMS>MaxRMS) MaxRMS=CurRMS;
   }
   printf("\n");
-  printf("vdCopySignI test/example program\n\n");
-  printf("           Argument                     vdCopySign\n");
-  printf("===============================================================================\n");
-  for(i=0;i<10;i++) {
-    printf("% 25.14f %25.14f % 25.14e\n",dA1_I[i*inca],dA2_I[i*incb],dBha0_I[i*incc]);
-    CurRMS_I=drelerr(dB_I[i*incc],dBha0_I[i*incc]);
-    if(CurRMS_I>MaxRMS_I) MaxRMS_I=CurRMS_I;
-  }
-  printf("\n");
   if(MaxRMS>=1e-14) {
     printf("Error! Relative accuracy is %.16f\n",MaxRMS);
     return 1;
@@ -162,14 +114,5 @@ int main()
     printf("Relative accuracy is %.16f\n",MaxRMS);
   }
 
-  printf("\n");
-
-  if(MaxRMS_I>=1e-14) {
-    printf("Error! Relative strided accuracy is %.16f\n",MaxRMS_I);
-    return 1;
-  }
-  else {
-    printf("Relative strided accuracy is %.16f\n",MaxRMS_I);
-  }
   return 0;
 }

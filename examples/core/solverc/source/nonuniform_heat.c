@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright 2013-2020 Intel Corporation.
+* Copyright 2013-2019 Intel Corporation.
 *
 * This software and the related documents are Intel copyrighted  materials,  and
 * your use of  them is  governed by the  express license  under which  they were
@@ -14,8 +14,7 @@
 
 /*
 *   Content : Example of solving nonlinear nonuniform heat problem  
-*             by Intel(R) Math Kernel Library (Intel(R) MKL) routines.
-*             We will use Intel MKL routines from different
+*             by Intel(R) MKL routines. We will use Intel(R) MKL routines from different 
 *             sub-domains: PDE Poisson, ISS, Sparse BLAS, BLAS
 *
 ********************************************************************************
@@ -256,9 +255,9 @@ MKL_INT main (void)
     printf ("Number of iteration equal to %d\n", (int)itercount);
 
     /*----------------------------------------------------------------------------------
-    ** Release internal Intel MKL memory that might have been used for computations  
+    ** Release internal Intel(R) MKL memory that might have been used for computations  
     ** NOTE: It is important to call the routine below to avoid memory leaks            
-    ** unless you disable Intel MKL Memory Manager                                      
+    ** unless you disable Intel(R) MKL Memory Manager                                      
     **--------------------------------------------------------------------------------*/
     return finalize(tmp, solution, dpar_helm, rhs, bd_ax, 
                     bd_bx, bd_ay, bd_by, bd_az, bd_bz, 

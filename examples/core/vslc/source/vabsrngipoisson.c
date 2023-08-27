@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright 2003-2020 Intel Corporation.
+* Copyright 2003-2019 Intel Corporation.
 *
 * This software and the related documents are Intel copyrighted  materials,  and
 * your use of  them is  governed by the  express license  under which  they were
@@ -127,7 +127,7 @@ int main()
 /* Callback function used in initialization of abstract stream */
 int MysUpdateFunc(VSLStreamStatePtr stream, int* n, float buf[], int* nmin, int* nmax, int* idx)
 {
-    int i;
+    int i, errcode;
     unsigned int num;
     float c;
 

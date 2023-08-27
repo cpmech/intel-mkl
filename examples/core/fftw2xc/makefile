@@ -1,5 +1,5 @@
 #===============================================================================
-# Copyright 2006-2020 Intel Corporation.
+# Copyright 2006-2019 Intel Corporation.
 #
 # This software and the related documents are Intel copyrighted  materials,  and
 # your use of  them is  governed by the  express license  under which  they were
@@ -169,7 +169,7 @@ _parallel_gnu = gnu
 _parallel_pgi = pgi
 
 _omp_intel = iomp5
-_omp_gnu = gomp
+_omp_gnu = iomp5
 _omp_pgi = pgmp
 
 parallel = $(_parallel_$(compiler))

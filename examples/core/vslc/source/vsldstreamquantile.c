@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright 2003-2020 Intel Corporation.
+* Copyright 2003-2019 Intel Corporation.
 *
 * This software and the related documents are Intel copyrighted  materials,  and
 * your use of  them is  governed by the  express license  under which  they were
@@ -50,6 +50,7 @@ int main()
     double a = 0.0, sigma = 1.0;
     int l1, l2;
     int i, j, k, errcode;
+    int numRight = 0, numLeft = 0;
     int errnums = 0;
 
     /***** Initializing parameters for Summary Statistics task *****/

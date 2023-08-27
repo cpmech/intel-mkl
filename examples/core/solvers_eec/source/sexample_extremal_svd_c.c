@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright 2005-2020 Intel Corporation.
+* Copyright 2005-2019 Intel Corporation.
 *
 * This software and the related documents are Intel copyrighted  materials,  and
 * your use of  them is  governed by the  express license  under which  they were
@@ -13,8 +13,7 @@
 *******************************************************************************/
 
 /*
-!   Content: Example for k Max/Min singular value problem based on
-!            Intel(R) Math Kernel Library (Intel(R) MKL)
+!   Content: Example for k Max/Min singular value problem based on Intel MKL 
 !            Extended Eigensolver (CSR sparse format, single precision)
 !
 !*******************************************************************************
@@ -47,6 +46,7 @@ int main()
 {
     MKL_INT N = 4;               /* number of rows in matrix A */
     MKL_INT M = 5;               /* number of columns in matrix A */
+    MKL_INT nnz = 4;             /* number of non-zeros in matrix */
 
     MKL_INT ia[5] = {1,
             3,
@@ -82,6 +82,7 @@ int main()
     float       zero = 0.0;    /* beta  parameter for GEMM */
     
     /* Sparse BLAS IE variables */
+    sparse_status_t status;
     sparse_matrix_t A = NULL; /* Handle containing sparse matrix in internal data structure */
     struct matrix_descr descr; /* Structure specifying sparse matrix properties */
     
@@ -94,7 +95,7 @@ int main()
 
     /* Create handle for matrix A stored in CSR format */
     descr.type = SPARSE_MATRIX_TYPE_GENERAL;
-    mkl_sparse_s_create_csr ( &A, SPARSE_INDEX_BASE_ONE, N, M, ia, ia+1, ja, a );    
+    status = mkl_sparse_s_create_csr ( &A, SPARSE_INDEX_BASE_ONE, N, M, ia, ia+1, ja, a );    
 
     /* Call mkl_sparse_ee_init to define default input values */
     mkl_sparse_ee_init(pm);

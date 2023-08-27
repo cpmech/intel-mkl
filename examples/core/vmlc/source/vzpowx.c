@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright 2001-2020 Intel Corporation.
+* Copyright 2001-2019 Intel Corporation.
 *
 * This software and the related documents are Intel copyrighted  materials,  and
 * your use of  them is  governed by the  express license  under which  they were
@@ -22,9 +22,6 @@
 
 #include "_rms.h"
 
-#define INCA 3
-#define INCB 5
-
 int main()
 {
   MKL_Complex16 zA[10],zB[10];
@@ -32,13 +29,6 @@ int main()
   MKL_Complex16           zBla1[10],zBla2[10];
   MKL_Complex16           zBep1[10],zBep2[10];
   float CurRMS,MaxRMS=0.0;
-
-  MKL_Complex16 zA_I[10*INCA],zB_I[10*INCB];
-  MKL_Complex16 zBha0_I[10*INCB],zBha1_I[10*INCB],zBha2_I[10*INCB];
-  MKL_Complex16                  zBla1_I[10*INCB],zBla2_I[10*INCB];
-  MKL_Complex16                  zBep1_I[10*INCB],zBep2_I[10*INCB];
-  float CurRMS_I,MaxRMS_I=0.0;
-  MKL_INT inca=INCA,incb=INCB;
 
   MKL_INT i=0,vec_len=10;
 
@@ -63,45 +53,26 @@ int main()
   zB[8].real=8.9261595917122804e+002;zB[8].imag=7.6109202498160059e+001;
   zB[9].real=2.0121481862211938e+003;zB[9].imag=-1.3059786621885627e+002;
 
-  for(i=0;i<10;i++) {
-    zA_I[i*inca]=zA[i];
-    zB_I[i*incb]=zB[i];
-  }
-
   vzPowx(vec_len,zA,zA[5],zBha0);
-  vzPowxI(vec_len,zA_I,inca,zA[5],zBha0_I,incb);
 
   vmzPowx(vec_len,zA,zA[5],zBep1,VML_EP);
-  vmzPowxI(vec_len,zA_I,inca,zA[5],zBep1_I,incb,VML_EP);
 
   vmlSetMode(VML_EP);
   vzPowx(vec_len,zA,zA[5],zBep2);
-  vzPowxI(vec_len,zA_I,inca,zA[5],zBep2_I,incb);
 
   vmzPowx(vec_len,zA,zA[5],zBla1,VML_LA);
-  vmzPowxI(vec_len,zA_I,inca,zA[5],zBla1_I,incb,VML_LA);
 
   vmlSetMode(VML_LA);
   vzPowx(vec_len,zA,zA[5],zBla2);
-  vzPowxI(vec_len,zA_I,inca,zA[5],zBla2_I,incb);
 
   vmzPowx(vec_len,zA,zA[5],zBha1,VML_HA);
-  vmzPowxI(vec_len,zA_I,inca,zA[5],zBha1_I,incb,VML_HA);
 
   vmlSetMode(VML_HA);
   vzPowx(vec_len,zA,zA[5],zBha2);
-  vzPowxI(vec_len,zA_I,inca,zA[5],zBha2_I,incb);
 
   for(i=0;i<10;i++) {
-    if(zBha0[i].real!=zBha1[i].real || zBha0[i].imag!=zBha1[i].imag || zBha1[i].real!=zBha2[i].real ||
-        zBha1[i].imag!=zBha2[i].imag) {
+    if(zBha0[i].real!=zBha1[i].real || zBha0[i].imag!=zBha1[i].imag || zBha1[i].real!=zBha2[i].real || zBha1[i].imag!=zBha2[i].imag) {
       printf("Error! Difference between vzPowx and vmzPowx in VML_HA mode detected.\n");
-      return 1;
-    }
-
-    if(zBha0_I[i*incb].real!=zBha1_I[i*incb].real || zBha0_I[i*incb].imag!=zBha1_I[i*incb].imag ||
-        zBha1_I[i*incb].real!=zBha2_I[i*incb].real || zBha1_I[i*incb].imag!=zBha2_I[i*incb].imag) {
-      printf("Error! Difference between vzPowxI and vmzPowxI in VML_HA mode detected.\n");
       return 1;
     }
 
@@ -110,18 +81,8 @@ int main()
       return 1;
     }
 
-    if(zBla1_I[i*incb].real!=zBla2_I[i*incb].real || zBla1_I[i*incb].imag!=zBla2_I[i*incb].imag) {
-      printf("Error! Difference between vzPowxI and vmzPowxI in VML_LA mode detected.\n");
-      return 1;
-    }
-
     if(zBep1[i].real!=zBep2[i].real || zBep1[i].imag!=zBep2[i].imag) {
       printf("Error! Difference between vzPowx and vmzPowx in VML_EP mode detected.\n");
-      return 1;
-    }
-
-    if(zBep1_I[i*incb].real!=zBep2_I[i*incb].real || zBep1_I[i*incb].imag!=zBep2_I[i*incb].imag) {
-      printf("Error! Difference between vzPowxI and vmzPowxI in VML_EP mode detected.\n");
       return 1;
     }
   }
@@ -130,20 +91,9 @@ int main()
   printf("           Argument                           vzPowx\n");
   printf("===============================================================================\n");
   for(i=0;i<10;i++) {
-    printf("   % .2f %+.2f*i   % .2f %+.2f*i      % .5f %+.5f*i\n",zA[i].real,zA[i].imag,zA[5].real,zA[5].imag,
-        zBha0[i].real,zBha0[i].imag);
+    printf("   % .2f %+.2f*i   % .2f %+.2f*i      % .5f %+.5f*i\n",zA[i].real,zA[i].imag,zA[5].real,zA[5].imag,zBha0[i].real,zBha0[i].imag);
     CurRMS=zrelerr(zB[i],zBha0[i]);
     if(CurRMS>MaxRMS) MaxRMS=CurRMS;
-  }
-  printf("\n");
-  printf("vzPowxI test/example program\n\n");
-  printf("           Argument                           vzPowx\n");
-  printf("===============================================================================\n");
-  for(i=0;i<10;i++) {
-    printf("   % .2f %+.2f*i   % .2f %+.2f*i      % .5f %+.5f*i\n",zA_I[i*inca].real,zA_I[i*inca].imag,zA[5].real,
-        zA[5].imag,zBha0_I[i*incb].real,zBha0_I[i*incb].imag);
-    CurRMS_I=zrelerr(zB_I[i*incb],zBha0_I[i*incb]);
-    if(CurRMS_I>MaxRMS_I) MaxRMS_I=CurRMS_I;
   }
   printf("\n");
   if(MaxRMS>=1e-5) {
@@ -154,14 +104,5 @@ int main()
     printf("Relative accuracy is %.16f\n",MaxRMS);
   }
 
-  printf("\n");
-
-  if(MaxRMS_I>=1e-5) {
-    printf("Error! Relative strided accuracy is %.16f\n",MaxRMS_I);
-    return 1;
-  }
-  else {
-    printf("Relative strided accuracy is %.16f\n",MaxRMS_I);
-  }
   return 0;
 }

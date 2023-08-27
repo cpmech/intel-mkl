@@ -1,5 +1,5 @@
 #===============================================================================
-# Copyright 2001-2020 Intel Corporation.
+# Copyright 2001-2019 Intel Corporation.
 #
 # This software and the related documents are Intel copyrighted  materials,  and
 # your use of  them is  governed by the  express license  under which  they were
@@ -45,8 +45,7 @@ help:
 	@echo "      interface=ilp64 - 64-bit integers"
 	@echo
 	@echo "  threading=<name> selects threading of MKL:"
-	@echo "      threading=omp   	  - multithreaded version (DEFAULT)"
-	@echo "      threading=tbb   	  - mutlithreaded with TBB"
+	@echo "      threading=parallel   - multithreaded version (DEFAULT)"
 	@echo "      threading=sequential - sequential version"
 	@echo
 	@echo "  parallel=<name> selects Intel(R) MKL threading layer for threading=parallel:"
@@ -55,7 +54,7 @@ help:
 	@echo "      parallel=pgi   - libmkl_pgi_thread"
 	@echo "      Default value depends on the setting of compiler=<name>"
 	@echo
-	@echo "  omp=<name> selects OpenMP runtime library for threading=omp:"
+	@echo "  omp=<name> selects OpenMP runtime library for threading=parallel:"
 	@echo "      omp=iomp5 - Intel OpenMP runtime"
 	@echo "      omp=gomp  - GNU OpenMP runtime"
 	@echo "      omp=pgmp  - PGI OpenMP runtime"
@@ -157,47 +156,43 @@ else
   override interface =
 endif
 
-ifeq (,$(filter omp tbb sequential,$(threading)))
-  override threading = omp
+ifeq (,$(filter parallel sequential,$(threading)))
+  override threading = parallel
 endif
 
-ifeq ($(threading),omp)
-  _parallel_intel = intel
-  _parallel_gnu = gnu
-  _parallel_pgi = pgi
-  
-  _omp_intel = iomp5
-  _omp_gnu = gomp
-  _omp_pgi = pgmp
-  
-  parallel = $(_parallel_$(compiler))
-  omp = $(_omp_$(parallel))
+ifneq ($(threading),sequential)
+_parallel_intel = intel
+_parallel_gnu = gnu
+_parallel_pgi = pgi
 
-  ifeq (,$(filter gomp pgmp,$(omp)))
-    override omp = iomp5
-  endif
+_omp_intel = iomp5
+_omp_gnu = iomp5
+_omp_pgi = pgmp
 
-  ifeq (,$(filter gnu pgi,$(parallel)))
-    override parallel = intel
-    override omp = iomp5
+parallel = $(_parallel_$(compiler))
+omp = $(_omp_$(parallel))
+endif
+
+ifeq (,$(filter gomp pgmp,$(omp)))
+  override omp = iomp5
+endif
+
+ifeq (,$(filter gnu pgi,$(parallel)))
+  override parallel = intel
+  override omp = iomp5
+else
+  ifeq ($(compiler)-$(parallel),gnu-gnu)
+    ifneq ($(omp),gomp)
+      override omp = iomp5
+    endif
   else
-    ifeq ($(compiler)-$(parallel),gnu-gnu)
-      ifneq ($(omp),gomp)
-        override omp = iomp5
-      endif
+    ifeq ($(compiler)-$(parallel),pgi-pgi)
+      override omp = pgmp
+      override MKL_LIBS_LINK = mixed
     else
-      ifeq ($(compiler)-$(parallel),pgi-pgi)
-        override omp = pgmp
-        override MKL_LIBS_LINK = mixed
-      else
-        override omp = iomp5
-      endif
+      override omp = iomp5
     endif
   endif
-endif
-
-ifeq ($(threading), tbb)
-  parallel = intel
 endif
 
 LOPTS =
@@ -247,42 +242,30 @@ ifeq ($(threading),sequential)
   threadname = $(threading)
   threadlayer = $(threading)
   THREADING_LIB = mkl_sequential
-  THR_LIB =
+  OMP_LIB =
 else
-  ifeq ($(threading),omp)
-    threadname = parallel_$(omp)
-    threadlayer = $(parallel)
-    THREADING_LIB = mkl_$(IFACE_THREADING_PART)_thread
-    ifeq ($(omp),iomp5)
-      THR_LIB = -L$(CMPLR_PATH) -l$(omp)
-    else
-      ifneq ($(LIB_PATH),)
-        THR_LIB = -L$(LIB_PATH)
-      endif
-      THR_LIB += -l$(omp)
-    endif
-  
-    ifeq ($(compiler)-$(IFACE_THREADING_PART),pgi-pgi)
-      COPTS += -mp
-    endif
-
-    ifeq ($(compiler),intel)
-      COPTS += -qopenmp
-    endif
-
-    ifeq ($(compiler),gnu)
-      COPTS += -fopenmp
-    endif
+  threadname = $(threading)_$(omp)
+  threadlayer = $(parallel)
+  THREADING_LIB = mkl_$(IFACE_THREADING_PART)_thread
+  ifeq ($(omp),iomp5)
+    OMP_LIB = -L$(CMPLR_PATH) -l$(omp)
   else
-    threadname = parallel_tbb
-    threadlayer = tbb
-    THREADING_LIB = mkl_tbb_thread
-    TBB_PATH = $(shell find $(MKLROOT)/../tbb/lib/$(_IA)/ -name "gcc*" | head -1)
-    ifneq ($(TBB_PATH),)
-        THR_LIB = -L$(TBB_PATH) -ltbb -lstdc++
-    else
-        THR_LIB = -ltbb -lstdc++
+    ifneq ($(LIB_PATH),)
+      OMP_LIB = -L$(LIB_PATH)
     endif
+    OMP_LIB += -l$(omp)
+  endif
+  
+  ifeq ($(compiler)-$(IFACE_THREADING_PART),pgi-pgi)
+    COPTS += -mp
+  endif
+
+  ifeq ($(compiler),intel)
+    COPTS += -qopenmp
+  endif
+
+  ifeq ($(compiler),gnu)
+    COPTS += -fopenmp
   endif
 endif
 
@@ -415,7 +398,7 @@ mkdir: FORCE
 	  -I$(MKLROOT)/include \
 	  $< \
 	  $(MKL_LIBS) \
-	  $(THR_LIB) -lpthread -lm -ldl -o $(res_dir)/$*.out
+	  $(OMP_LIB) -lpthread -lm -ldl -o $(res_dir)/$*.out
 	-rm -f $(res_dir)/$@ # remove res-file
 	@echo
 	# run $*.out

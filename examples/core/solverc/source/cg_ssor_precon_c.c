@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright 2005-2020 Intel Corporation.
+* Copyright 2005-2019 Intel Corporation.
 *
 * This software and the related documents are Intel copyrighted  materials,  and
 * your use of  them is  governed by the  express license  under which  they were
@@ -14,7 +14,7 @@
 
 /*
 !
-!  Content: Intel(R) Math Kernel Library (Intel(R) MKL) RCI (P)CG C example
+!  Content: Intel(R) MKL RCI (P)CG C example
 !
 !*******************************************************************************/
 
@@ -51,9 +51,9 @@
 * The compressed sparse row format is used for storing nonzeros of A and
 * since D is the identity matrix, we don't need to store diagonal elements. So
 * the code given below only uses the sparse representation of U. The Intel
-* Intel MKL Sparse BLAS is designed so that it allows the user to perform large
+* Intel(R) MKL Sparse BLAS is designed so that it allows the user to perform large
 * variety of operations with one sparse representation setting appropriate
-* values of the descriptor array (see Intel MKL User Guide for the further details).
+* values of the descriptor array (see Intel(R) MKL User Guide for the further details).
 *
 * Full case: full functionality of RCI (P)CG is used.
 *---------------------------------------------------------------------------*/
@@ -180,7 +180,7 @@ rci:dcg (&n, solution, rhs, &rci_request, ipar, dpar, tmp);
     }
   /*---------------------------------------------------------------------------*/
   /* If rci_request=2, then do the user-defined stopping test: compute the     */
-  /* Euclidean norm of the actual residual using Intel MKL routines and check if     */
+  /* Euclidean norm of the actual residual using Intel(R) MKL routines and check if     */
   /* it is less than 1.E-8                                                     */
   /*---------------------------------------------------------------------------*/
   if (rci_request == 2)
@@ -257,9 +257,9 @@ getsln:dcg_get (&n, solution, rhs, &rci_request, ipar, dpar, tmp, &itercount);
   euclidean_norm = dnrm2 (&n, expected_sol, &i);
 
   /*-------------------------------------------------------------------------*/
-  /* Release internal Intel MKL memory that might be used for computations         */
+  /* Release internal Intel(R) MKL memory that might be used for computations         */
   /* NOTE: It is important to call the routine below to avoid memory leaks   */
-  /* unless you disable Intel MKL Memory Manager                                   */
+  /* unless you disable Intel(R) MKL Memory Manager                                   */
   /*-------------------------------------------------------------------------*/
   MKL_Free_Buffers ();
 
@@ -278,9 +278,9 @@ getsln:dcg_get (&n, solution, rhs, &rci_request, ipar, dpar, tmp, &itercount);
       return 1;
     }
   /*-------------------------------------------------------------------------*/
-  /* Release internal Intel MKL memory that might be used for computations         */
+  /* Release internal Intel(R) MKL memory that might be used for computations         */
   /* NOTE: It is important to call the routine below to avoid memory leaks   */
-  /* unless you disable Intel MKL Memory Manager                                   */
+  /* unless you disable Intel(R) MKL Memory Manager                                   */
   /*-------------------------------------------------------------------------*/
 failure:printf ("This example FAILED as the solver has returned the ERROR code %d", rci_request);
   mkl_sparse_destroy(csrA);

@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright 2003-2020 Intel Corporation.
+* Copyright 2003-2019 Intel Corporation.
 *
 * This software and the related documents are Intel copyrighted  materials,  and
 * your use of  them is  governed by the  express license  under which  they were
@@ -306,7 +306,7 @@ void dComputePvalsCentralMoments(MKL_INT dim, MKL_INT n, double* central,
                                  double* pvals)
 {
     int i;
-    double D, sqrtD;
+    double D, sqrtD, tmp;
     double *d;
     double mu_2, mu_2k, mu_kp1, mu_km1, mu_k;
 
@@ -348,7 +348,7 @@ void sComputePvalsCentralMoments(MKL_INT dim, MKL_INT n, float* central,
                                  float* pvals)
 {
     int i;
-    float D, sqrtD;
+    float D, sqrtD, tmp;
     float *d;
     float mu_2, mu_2k, mu_kp1, mu_km1, mu_k;
 
@@ -386,10 +386,13 @@ void sComputePvalsCentralMoments(MKL_INT dim, MKL_INT n, float* central,
 void dComputePvalsKurtosis(MKL_INT dim, MKL_INT n, double* kurt,
                            double* C, double* pvals)
 {
-    int i;
+    int i, factorial;
     double sigma2, Es, D, sqrtD;
     double mu2, mu4, mu6, mu8, mu2_2, mu4_2;
     double *d;
+
+    double normD;
+    double dN = n;
 
     d = (double*)malloc( dim * sizeof(double) );
     if(d==NULL) exit(1);
@@ -432,10 +435,13 @@ void dComputePvalsKurtosis(MKL_INT dim, MKL_INT n, double* kurt,
 void sComputePvalsKurtosis(MKL_INT dim, MKL_INT n, float* kurt,
                            float* C, float* pvals)
 {
-    int i;
+    int i, factorial;
     float sigma2, Es, D, sqrtD;
     float mu2, mu4, mu6, mu8, mu2_2, mu4_2;
     float *d;
+
+    float normD;
+    float dN = n;
 
     d = (float*)malloc( dim * sizeof(float) );
     if(d==NULL) exit(1);
@@ -478,8 +484,8 @@ void sComputePvalsKurtosis(MKL_INT dim, MKL_INT n, float* kurt,
 void dComputePvalsSkewness(MKL_INT dim, MKL_INT n, double* skew,
                            double* C, double* pvals)
 {
-    int i;
-    double sigma2, D, sqrtD;
+    int i, factorial;
+    double sigma2, D, sqrtD, tmp;
     double mu2, mu4, mu6, mu2_2, mu2_3, mu4_2;
     double *d;
 
@@ -520,8 +526,8 @@ void dComputePvalsSkewness(MKL_INT dim, MKL_INT n, double* skew,
 void sComputePvalsSkewness(MKL_INT dim, MKL_INT n, float* skew,
                            float* C, float* pvals)
 {
-    int i;
-    float sigma2, D, sqrtD;
+    int i, factorial;
+    float sigma2, D, sqrtD, tmp;
     float mu2, mu4, mu6, mu2_2, mu2_3, mu4_2;
     float *d;
 

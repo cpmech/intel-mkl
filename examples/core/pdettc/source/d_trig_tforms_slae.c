@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright 2006-2020 Intel Corporation.
+* Copyright 2006-2019 Intel Corporation.
 *
 * This software and the related documents are Intel copyrighted  materials,  and
 * your use of  them is  governed by the  express license  under which  they were
@@ -46,7 +46,7 @@ int main(void)
   DFTI_DESCRIPTOR_HANDLE handle = 0;
 
   /* Printing the header for the example */
-  printf("\n Example of use of Intel(R) Math Kernel Library (Intel(R) MKL) Trigonometric Transforms\n");
+  printf("\n Example of use of Intel(R) MKL Trigonometric Transforms\n");
   printf(" **********************************************\n\n");
   printf(" This example gives the the exact solutions of the linear algebraic \n");
   printf(" systems, corresponding to the three-point approximations of the 1D \n");
@@ -68,7 +68,7 @@ int main(void)
   if (f == 0) goto FAILURE;
   /* NOTE: This example uses shorter dpar array of size 3n/2+2 instead of 5n/2+2
   as only sine, cosine, and staggered cosine transforms are used. More details
-  can be found in Chapter 13 of Intel MKL Manual. */
+  can be found in Chapter 13 of Intel(R) MKL Manual. */
   dpar=(double*)mkl_malloc((3*n/2+2)*sizeof(double), 64);
   if (dpar == 0) goto FAILURE;
   lambda=(double*)mkl_malloc((n+1)*sizeof(double), 64);
@@ -197,7 +197,7 @@ int main(void)
     /* End of the loop over the different kind of transforms and problems */
   }
 
-  /* Free Intel MKL memory if any was allocated */
+  /* Free Intel(R) MKL memory if any was allocated */
   MKL_Free_Buffers();
   /* Success message to print if everything is OK */
   printf("This example has successfully PASSED through all steps of computation!\n");
@@ -209,7 +209,7 @@ int main(void)
 
   /* Failure message to print if something went wrong */
 FAILURE: printf("Failed to compute the solution(s)...\n");
-        /* Free Intel MKL memory if any was allocated */
+        /* Free Intel(R) MKL memory if any was allocated */
         MKL_Free_Buffers();
         if (u != 0) mkl_free(u); 
         if (f != 0) mkl_free(f); 

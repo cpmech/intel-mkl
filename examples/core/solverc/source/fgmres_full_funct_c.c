@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright 2005-2020 Intel Corporation.
+* Copyright 2005-2019 Intel Corporation.
 *
 * This software and the related documents are Intel copyrighted  materials,  and
 * your use of  them is  governed by the  express license  under which  they were
@@ -14,8 +14,8 @@
 
 /*
 *  Content:
-*  Intel(R) Math Kernel Library (Intel(R) MKL) RCI (P)FGMRES ((Preconditioned)
-*  Flexible Generalized Minimal RESidual method) example
+*  Intel(R) MKL RCI (P)FGMRES ((Preconditioned) Flexible Generalized Minimal
+*                                                       RESidual method) example
 ********************************************************************************/
 
 /*---------------------------------------------------------------------------
@@ -234,7 +234,7 @@ ONE:dfgmres (&ivar, computed_solution, rhs, &RCI_request, ipar, dpar, tmp);
       ipar[12] = 1;
       /* Get the current FGMRES solution in the vector b[N] */
       dfgmres_get (&ivar, computed_solution, b, &RCI_request, ipar, dpar, tmp, &itercount);
-      /* Compute the current true residual via Intel MKL (Sparse) BLAS routines */
+      /* Compute the current true residual via Intel(R) MKL (Sparse) BLAS routines */
       mkl_sparse_d_mv( transA, 1.0, csrA, descrA, b, 0.0, residual);
       dvar = -1.0E0;
       i = 1;
@@ -334,9 +334,9 @@ COMPLETE:ipar[12] = 0;
   dvar = dnrm2 (&ivar, expected_solution, &i);
 
   /*-------------------------------------------------------------------------*/
-  /* Release internal Intel MKL memory that might be used for computations         */
+  /* Release internal Intel(R) MKL memory that might be used for computations         */
   /* NOTE: It is important to call the routine below to avoid memory leaks   */
-  /* unless you disable Intel MKL Memory Manager                                   */
+  /* unless you disable Intel(R) MKL Memory Manager                                   */
   /*-------------------------------------------------------------------------*/
   MKL_Free_Buffers ();
 
@@ -355,9 +355,9 @@ COMPLETE:ipar[12] = 0;
       return 1;
     }
   /*-------------------------------------------------------------------------*/
-  /* Release internal Intel MKL memory that might be used for computations         */
+  /* Release internal Intel(R) MKL memory that might be used for computations         */
   /* NOTE: It is important to call the routine below to avoid memory leaks   */
-  /* unless you disable Intel MKL Memory Manager                                   */
+  /* unless you disable Intel(R) MKL Memory Manager                                   */
   /*-------------------------------------------------------------------------*/
 FAILED:printf ("\nThis example FAILED as the solver has returned the ERROR code %d", RCI_request);
   mkl_sparse_destroy(csrA);
