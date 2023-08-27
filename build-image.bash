@@ -10,4 +10,3 @@ echo "............................................................."
 echo
 
 docker build --no-cache -t $NAME:$VERSION .
-docker images -q -f "dangling=true" | xargs docker rmi
