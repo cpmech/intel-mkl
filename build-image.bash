@@ -1,6 +1,6 @@
 #!/bin/bash
 
-NAME="intelmkl"
+NAME="cpmech/intel-mkl-examples"
 VERSION="latest"
 
 echo
@@ -9,5 +9,5 @@ echo "... docker .................................................."
 echo "............................................................."
 echo
 
-docker build --no-cache -t gosl/$NAME:$VERSION .
-
+docker build --no-cache -t $NAME:$VERSION .
+docker images -q -f "dangling=true" | xargs docker rmi
