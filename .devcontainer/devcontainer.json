@@ -1,0 +1,8 @@
+{
+  "name": "intel-mkl",
+  "image": "intelmkl",
+  "forwardPorts": [
+    9000
+  ],
+  "remoteUser": "vscode"
+}
