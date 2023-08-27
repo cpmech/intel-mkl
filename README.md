@@ -7,6 +7,7 @@ This project runs the Intel MKL examples from within a container.
 ```bash
 ./run_cblas_examples.bash
 ./run_lapackc_examples.bash
+./run_lapacke_examples.bash
 ```
 
 ## Intel MKL Repository
