@@ -14,5 +14,6 @@ for ex in $EXAMPLES; do
     make libintel64 compiler=gnu MKLROOT=/opt/intel/mkl function=cblas_$ex 1> /dev/null
     echo
     echo "RESULTS:"
-    cat "_results/gnu_lp64_omp_intel64_lib/cblas_$ex.res"
+    cat "_results/gnu_lp64_parallel_intel64_lib/cblas_${ex}x.res"
+    echo
 done
