@@ -1,8 +1,4 @@
 {
   "name": "intel-mkl-examples",
-  "image": "cpmech/intel-mkl-examples",
-  "forwardPorts": [
-    9000
-  ],
-  "remoteUser": "vscode"
+  "image": "cpmech/intel-mkl-examples"
 }
