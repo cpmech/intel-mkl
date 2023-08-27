@@ -1,7 +1,28 @@
 #!/bin/bash
 
+set -e
+
 EXAMPLES="\
+    dasum \
+    daxpy \
+    dcopy \
+    ddot \
+    dnrm2 \
+    dgemm \
     dgemv \
+    dger \
+    dscal \
+    dsymm \
+    dsymv \
+    dsyrk \
+    idamax \
+    zaxpy \
+    zcopy \
+    zgemm \
+    zgemv \
+    zherk \
+    zscal \
+    zsyrk \
 "
 
 cd examples/core/cblas

@@ -1,10 +1,14 @@
 #!/bin/bash
 
+set -e
+
 EXAMPLES="\
     dgeev \
     dgesv \
     dgesvd \
     dsyev \
+    zgesv \
+    zgesvd \
 "
 
 cd examples/core/lapackc
