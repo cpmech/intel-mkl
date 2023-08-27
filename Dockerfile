@@ -33,5 +33,8 @@ RUN apt-get update -y && apt-get install -y --no-install-recommends \
   intel-mkl-2020.0-088
 
 # copy files
-COPY examples /tmp/mkl-examples
-WORKDIR /tmp/mkl-examples
+COPY . /tmp/intel-mkl-examples
+WORKDIR /tmp/intel-mkl-examples
+
+# configure image for remote development
+#RUN bash zscripts/common-debian.sh

@@ -1,4 +1,5 @@
 {
   "name": "intel-mkl-examples",
-  "image": "cpmech/intel-mkl-examples"
+  "image": "cpmech/intel-mkl-examples",
+  "remoteUser": "vscode"
 }
