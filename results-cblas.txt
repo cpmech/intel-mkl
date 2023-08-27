@@ -1,0 +1,489 @@
+
+
+
+------------------------------------------------------------------------
+COMPILING AND RUNNING <dasum>
+
+RESULTS:
+
+     C B L A S _ D A S U M  EXAMPLE PROGRAM
+
+     INPUT DATA
+       N=7
+       VECTOR X   INCX=1
+            1.630    -2.220     3.870     4.910    -5.450     6.200    -7.770  
+
+     OUTPUT DATA
+       DASUM =  32.050
+
+
+
+------------------------------------------------------------------------
+COMPILING AND RUNNING <daxpy>
+
+RESULTS:
+
+     C B L A S _ D A X P Y  EXAMPLE PROGRAM
+
+     INPUT DATA
+       N=4
+       ALPHA= 0.5
+       VECTOR X   INCX=1
+            1.120     2.350     3.630     4.760  
+       VECTOR Y   INCY=2
+            0.500     0.500     0.500     0.500     0.500     0.500     0.500  
+
+     OUTPUT DATA
+       VECTOR Y   INCY=2
+            1.060     0.500     1.675     0.500     2.315     0.500     2.880  
+
+
+
+------------------------------------------------------------------------
+COMPILING AND RUNNING <dcopy>
+
+RESULTS:
+
+     C B L A S _ D C O P Y  EXAMPLE PROGRAM
+
+     INPUT DATA
+       N=4
+       VECTOR X   INCX=2
+            1.340    -2.190     3.810     4.450    -5.560    -4.560     7.200  
+
+     OUTPUT DATA
+       VECTOR Y   INCY=1
+            1.340     3.810    -5.560     7.200  
+
+
+
+------------------------------------------------------------------------
+COMPILING AND RUNNING <ddot>
+
+RESULTS:
+
+     C B L A S _ D D O T  EXAMPLE PROGRAM
+
+     INPUT DATA
+       N=4
+       VECTOR X   INCX=1
+            1.470    -2.120     3.840     4.460  
+       VECTOR Y   INCY=2
+           -1.470    -3.000     3.170     5.110    -2.500     6.910    -7.070  
+
+     OUTPUT DATA
+       DDOT =  -50.013
+
+
+
+------------------------------------------------------------------------
+COMPILING AND RUNNING <dnrm2>
+
+RESULTS:
+
+     C B L A S _ D N R M 2  EXAMPLE PROGRAM
+
+     INPUT DATA
+       N=7
+       VECTOR X   INCX=1
+            1.630    -2.220     3.870     4.910    -5.450     6.200    -7.770  
+
+     OUTPUT DATA
+       DNRM2 =   13.236
+
+
+
+------------------------------------------------------------------------
+COMPILING AND RUNNING <dgemm>
+
+RESULTS:
+
+     C B L A S _ D G E M M  EXAMPLE PROGRAM
+
+     INPUT DATA
+       M=2  N=5  K=4
+       ALPHA=  0.5  BETA= -1.2
+       TRANSA = CblasTrans  TRANSB = CblasTrans  
+       LAYOUT = CblasRowMajor  
+       ARRAY A   LDA=2
+            1.500     2.220  
+            6.300     9.000  
+            1.000    -4.000  
+            0.200     7.500  
+       ARRAY B   LDB=4
+            1.000     2.000     3.000     4.000  
+            1.000     2.000     3.000     4.000  
+            1.000     2.000     3.000     4.000  
+            1.000     2.000     3.000     4.000  
+            1.000     2.000     3.000     4.000  
+       ARRAY C   LDC=5
+            0.000     0.000     1.000     1.000     1.000  
+            0.000     0.000     1.000     1.000     1.000  
+
+     OUTPUT DATA
+       ARRAY C   LDC=5
+            8.950     8.950     7.750     7.750     7.750  
+           19.110    19.110    17.910    17.910    17.910  
+
+
+
+------------------------------------------------------------------------
+COMPILING AND RUNNING <dgemv>
+
+RESULTS:
+
+     C B L A S _ D G E M V  EXAMPLE PROGRAM
+
+     INPUT DATA
+       M=4  N=5
+       ALPHA= 0.56  BETA= 1.00
+       TRANS = CblasTrans  
+       LAYOUT = CblasRowMajor  
+       VECTOR X   INCX=-1
+            1.000     2.000     3.000     4.000  
+       VECTOR Y   INCY=1
+            1.000     1.000     1.000     1.000     1.000  
+       ARRAY A   LDA=5
+           -1.300     2.300     3.700     4.300     5.900  
+           -1.800     2.800     3.200     4.600     5.700  
+            1.100     2.200     3.000     4.500     5.400  
+            1.900     2.800     3.400     4.200     5.100  
+
+     OUTPUT DATA
+       VECTOR Y   INCY=1
+           -2.640    14.888    19.928    25.752    32.696  
+
+
+
+------------------------------------------------------------------------
+COMPILING AND RUNNING <dger>
+
+RESULTS:
+
+     C B L A S _ D G E R   EXAMPLE PROGRAM
+
+     INPUT DATA
+       M=4  N=5
+       ALPHA=-0.50
+       LAYOUT = CblasRowMajor  
+       VECTOR X   INCX=1
+            1.000     2.000     3.000     4.000  
+       VECTOR Y   INCY=1
+            1.000     1.000     1.000     1.000     1.000  
+       ARRAY A   LDA=5
+           -1.240     2.900     3.710     4.720     5.300  
+            1.450     2.280     3.400     4.440    -5.000  
+            1.870     2.140    -3.760     4.600     5.500  
+            1.900     2.360     3.800     4.350     5.000  
+
+     OUTPUT DATA
+       ARRAY A   LDA=5
+           -1.740     2.400     3.210     4.220     4.800  
+            0.450     1.280     2.400     3.440    -6.000  
+            0.370     0.640    -5.260     3.100     4.000  
+           -0.100     0.360     1.800     2.350     3.000  
+
+
+
+------------------------------------------------------------------------
+COMPILING AND RUNNING <dscal>
+
+RESULTS:
+
+     C B L A S _ D S C A L  EXAMPLE PROGRAM
+
+     INPUT DATA
+       N=4
+       DA= 0.75
+       VECTOR X   INCX=2
+            1.120     2.120     3.120     4.120     5.120     6.120     7.120  
+
+     OUTPUT DATA
+       VECTOR X   INCX=2
+            0.840     2.120     2.340     4.120     3.840     6.120     5.340  
+
+
+
+------------------------------------------------------------------------
+COMPILING AND RUNNING <dsymm>
+
+RESULTS:
+
+     C B L A S _ D S Y M M  EXAMPLE PROGRAM
+
+     INPUT DATA
+       M=3  N=5
+       ALPHA=  0.14  BETA=  1.62
+       SIDE = CblasRight  UPLO = CblasLower  
+       LAYOUT = CblasRowMajor  
+       ARRAY A   LDA=5
+            1.000  
+           -2.320     4.330  
+            3.000    -5.000     6.000  
+            7.100     8.000     9.210    10.100  
+           11.000    12.450    13.000   -14.700    15.000  
+       ARRAY B   LDB=5
+            1.000     2.000     3.000     4.000     5.000  
+            1.000     2.000     3.000     4.000     5.000  
+            1.000     2.000     3.000     4.000     5.000  
+       ARRAY C   LDC=5
+            1.100     1.100     1.100     1.100     1.100  
+            1.100     1.100     1.100     1.100     1.100  
+            1.100     1.100     1.100     1.100     1.100  
+
+     OUTPUT DATA
+       ARRAY C   LDC=5
+           14.208    13.765    17.580     4.250    14.536  
+           14.208    13.765    17.580     4.250    14.536  
+           14.208    13.765    17.580     4.250    14.536  
+
+
+
+------------------------------------------------------------------------
+COMPILING AND RUNNING <dsymv>
+
+RESULTS:
+
+     C B L A S _ D S Y M V  EXAMPLE PROGRAM
+
+     INPUT DATA
+       N=4
+       ALPHA=  0.5  BETA=  1.0
+       UPLO = CblasLower  
+       LAYOUT = CblasRowMajor  
+       VECTOR X   INCX=1
+            1.000     2.000     3.000     4.000  
+       VECTOR Y   INCY=2
+            1.000     1.000     1.000     1.000     1.000     1.000     1.000  
+       ARRAY A   LDA=4
+            1.450  
+            2.450     3.450  
+            4.450     5.450     6.450  
+            7.450     8.450     9.450    10.450  
+
+     OUTPUT DATA
+       VECTOR Y   INCY=2
+           25.750     1.000    30.750     1.000    37.250     1.000    48.250  
+
+
+
+------------------------------------------------------------------------
+COMPILING AND RUNNING <dsyrk>
+
+RESULTS:
+
+     C B L A S _ D S Y R K  EXAMPLE PROGRAM
+
+     INPUT DATA
+       N=3  K=4
+       ALPHA=  0.33  BETA=  1.20
+       UPLO = CblasLower  
+       TRANS = CblasTrans  
+       LAYOUT = CblasRowMajor  
+       ARRAY A   LDA=3
+            1.650     2.000     3.000  
+            3.200     2.700     8.150  
+           -1.650    -2.000    -3.000  
+            0.210     4.050     5.000  
+       ARRAY C   LDC=3
+            1.120  
+           -2.250     3.700  
+            5.400    -1.050     7.740  
+
+     OUTPUT DATA
+       ARRAY C   LDC=3
+            6.535  
+            2.610    14.899  
+           18.700    16.644    45.397  
+
+
+
+------------------------------------------------------------------------
+COMPILING AND RUNNING <idamax>
+
+RESULTS:
+
+     C B L A S _ I D A M A X  EXAMPLE PROGRAM
+
+     INPUT DATA
+       N=7
+       VECTOR X   INCX=1
+            1.230     8.410     3.560     4.870     8.400     5.220    -6.450  
+
+     OUTPUT DATA
+       IDAMAX = 1
+
+
+
+------------------------------------------------------------------------
+COMPILING AND RUNNING <zaxpy>
+
+RESULTS:
+
+     C B L A S _ Z A X P Y  EXAMPLE PROGRAM
+
+     INPUT DATA
+       N=4
+       ALPHA=( 0.5,-0.5 )
+       VECTOR X   INCX=1
+         (  1.00,  1.00)   (  2.00, -1.00)   (  3.00,  1.00)   (  4.00, -1.00)   
+       VECTOR Y   INCY=1
+         (  0.50,  0.50)   (  0.50,  0.50)   (  0.50,  0.50)   (  0.50,  0.50)   
+
+     OUTPUT DATA
+       VECTOR Y   INCY=1
+         (  1.50,  0.50)   (  1.00, -1.00)   (  2.50, -0.50)   (  2.00, -2.00)   
+
+
+
+------------------------------------------------------------------------
+COMPILING AND RUNNING <zcopy>
+
+RESULTS:
+
+     C B L A S _ Z C O P Y  EXAMPLE PROGRAM
+
+     INPUT DATA
+       N=4
+       VECTOR X   INCX=1
+         (  1.60,  1.40)   (  2.20, -1.40)   (  3.70,  1.00)   (  4.10, -1.70)   
+
+     OUTPUT DATA
+       VECTOR Y   INCY=1
+         (  1.60,  1.40)   (  2.20, -1.40)   (  3.70,  1.00)   (  4.10, -1.70)   
+
+
+
+------------------------------------------------------------------------
+COMPILING AND RUNNING <zgemm>
+
+RESULTS:
+
+     C B L A S _ Z G E M M  EXAMPLE PROGRAM
+
+     INPUT DATA
+       M=2  N=4  K=3
+       ALPHA =(  0.2,  3.1 )  BETA =(  1.2, -0.7 )
+       TRANSA = CblasNoTrans  TRANSB = CblasNoTrans  
+       LAYOUT = CblasRowMajor  
+       ARRAY A   LDA=3
+         (  1.56,  0.10)   (  2.06,  0.38)   (  6.32,  0.43)   
+         ( -3.22,  0.40)   ( -2.78,  1.15)   (  3.01,  0.60)   
+       ARRAY B   LDB=4
+         (  1.11, -1.00)   (  2.45,  2.37)   (  3.76,  0.00)   (  6.32,  0.43)   
+         (  1.11,  1.00)   (  2.45,  0.04)   (  3.67,  0.80)   (  6.32,  0.43)   
+         (  1.11, -1.00)   (  2.45,  0.63)   (  3.76,  0.00)   (  6.32,  0.43)   
+       ARRAY C   LDC=4
+         (  0.00,  0.00)   (  0.00,  0.10)   (  1.00,  0.10)   (  1.00,  0.00)   
+         (  0.00,  0.00)   (  0.00,  0.10)   (  1.00,  0.10)   (  1.00,  0.00)   
+
+     OUTPUT DATA
+       ARRAY C   LDC=4
+         ( 17.53, 33.67)   (-25.52, 76.53)   ( -5.90,115.27)   (-15.62,195.74)   
+         ( -0.23,-10.83)   ( -0.13,-27.06)   (-19.37,-36.32)   (-41.62,-59.53)   
+
+
+
+------------------------------------------------------------------------
+COMPILING AND RUNNING <zgemv>
+
+RESULTS:
+
+     C B L A S _ Z G E M V  EXAMPLE PROGRAM
+
+     INPUT DATA
+       M=3  N=4
+       ALPHA=(  0.5,   0.0 )  BETA=(  1.0,   1.0 )
+       TRANS = CblasTrans  
+       LAYOUT = CblasRowMajor  
+       VECTOR X   INCX=-1
+         (  1.00,  1.00)   (  2.00,  1.00)   (  3.00,  1.00)   
+       VECTOR Y   INCY=1
+         (  1.00,  1.00)   (  1.00,  1.00)   (  1.00,  1.00)   (  1.00,  1.00)   
+       ARRAY A   LDA=4
+         (  1.00,  1.00)   (  2.00,  1.00)   (  3.00,  1.00)   (  4.00,  1.00)   
+         (  1.00,  1.00)   (  2.00,  1.00)   (  3.00,  1.00)   (  4.00,  1.00)   
+         (  1.00,  1.00)   (  2.00,  1.00)   (  3.00,  1.00)   (  4.00,  1.00)   
+
+     OUTPUT DATA
+       VECTOR Y   INCY=1
+         (  1.50,  6.50)   (  4.50,  8.00)   (  7.50,  9.50)   ( 10.50, 11.00)   
+
+
+
+------------------------------------------------------------------------
+COMPILING AND RUNNING <zherk>
+
+RESULTS:
+
+     C B L A S _ Z H E R K  EXAMPLE PROGRAM
+
+     INPUT DATA
+       N=2  K=4
+       ALPHA = 0.5  BETA = 1.2
+       UPLO = CblasUpper  
+       TRANS = CblasConjTrans  
+       LAYOUT = CblasRowMajor  
+       ARRAY A   LDA=2
+         ( -3.23,  0.41)   ( -2.70,  1.10)   
+         (  4.05, -3.06)   (  5.20,  7.00)   
+         (  0.09,  0.77)   (  4.00,  0.88)   
+         (  1.72,  1.13)   (  2.40,  0.21)   
+       ARRAY C   LDC=2
+         (  5.53, -4.41)   (  2.02,  0.09)   
+                           (  0.56,  0.18)   
+
+     OUTPUT DATA
+       ARRAY C   LDC=2
+         ( 27.24,  0.00)   (  9.53, 18.34)   
+                           ( 54.23,  0.00)   
+
+
+
+------------------------------------------------------------------------
+COMPILING AND RUNNING <zscal>
+
+RESULTS:
+
+     C B L A S _ Z S C A L  EXAMPLE PROGRAM
+
+     INPUT DATA
+       N=4
+       ZA=( 0.50, 1.50 )
+       VECTOR X   INCX=1
+         (  1.40,  1.00)   (  2.40,  2.00)   (  3.40,  3.00)   (  4.40,  4.00)   
+
+     OUTPUT DATA
+       VECTOR X   INCX=1
+         ( -0.80,  2.60)   ( -1.80,  4.60)   ( -2.80,  6.60)   ( -3.80,  8.60)   
+
+
+
+------------------------------------------------------------------------
+COMPILING AND RUNNING <zsyrk>
+
+RESULTS:
+
+     C B L A S _ Z S Y R K  EXAMPLE PROGRAM
+
+     INPUT DATA
+       N=3  K=4
+       ALPHA =( 0.5, 0.5)  BETA =( 1.5,-1.2)
+       UPLO = CblasLower  
+       TRANS = CblasTrans  
+       LAYOUT = CblasRowMajor  
+       ARRAY A   LDA=3
+         (  1.01, -1.00)   (  2.00, -2.00)   (  3.06, -3.71)   
+         (  6.23, -4.00)   (  3.20, -3.20)   (  2.71, -2.70)   
+         (  4.10, -3.10)   (  5.00, -5.00)   (  0.33, -0.33)   
+         (  2.05, -4.50)   ( -5.00,  5.00)   (  3.42, -3.00)   
+       ARRAY C   LDC=3
+         (  1.15,  0.07)   
+         (  2.27,  0.32)   (  5.40,  0.70)   
+         (  0.79,  0.89)   ( -1.73,  0.00)   (  7.45,  0.20)   
+
+     OUTPUT DATA
+       ARRAY C   LDC=3
+         ( 51.21,-38.12)   
+         ( 32.84, -9.37)   ( 66.90,-63.50)   
+         ( 28.27,-26.22)   ( -3.22, -0.28)   ( 36.97,-35.89)   

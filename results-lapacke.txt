@@ -5,7 +5,7 @@
 COMPILING AND RUNNING <dgeev>
 
 RESULTS:
- DGEEV Example Program Results
+LAPACKE_dgeev (column-major, high-level) Example Program Results
 
  Eigenvalues
  (  2.86, 10.76) (  2.86,-10.76) ( -0.69,  4.70) ( -0.69, -4.70) -10.46
@@ -30,7 +30,7 @@ RESULTS:
 COMPILING AND RUNNING <dgesv>
 
 RESULTS:
- DGESV Example Program Results
+LAPACKE_dgesv (column-major, high-level) Example Program Results
 
  Solution
   -0.80  -0.39   0.96
@@ -55,7 +55,7 @@ RESULTS:
 COMPILING AND RUNNING <dgesvd>
 
 RESULTS:
- DGESVD Example Program Results
+LAPACKE_dgesvd (column-major, high-level) Example Program Results
 
  Singular values
   27.47  22.64   8.56   5.99   2.01
@@ -81,7 +81,7 @@ RESULTS:
 COMPILING AND RUNNING <dsyev>
 
 RESULTS:
- DSYEV Example Program Results
+LAPACKE_dsyev (column-major, high-level) Example Program Results
 
  Eigenvalues
  -11.07  -6.23   0.86   8.87  16.09
@@ -99,7 +99,7 @@ RESULTS:
 COMPILING AND RUNNING <zgesv>
 
 RESULTS:
- ZGESV Example Program Results
+LAPACKE_zgesv (column-major, high-level) Example Program Results
 
  Solution
  ( -1.09, -0.18) (  1.28,  1.21)
@@ -122,7 +122,7 @@ RESULTS:
 COMPILING AND RUNNING <zgesvd>
 
 RESULTS:
- ZGESVD Example Program Results
+LAPACKE_zgesvd (column-major, high-level) Example Program Results
 
  Singular values
   17.63  11.61   6.78
