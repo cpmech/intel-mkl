@@ -1,6 +1,6 @@
 #!/bin/bash
 
-NAME="intelmkl"
+NAME="cpmech/intel-mkl-examples"
 VERSION="latest"
 
-docker run --rm -it gosl/$NAME:$VERSION /bin/bash
+docker run --rm -it $NAME:$VERSION /bin/bash
