@@ -37,4 +37,4 @@ COPY . /tmp/intel-mkl-examples
 WORKDIR /tmp/intel-mkl-examples
 
 # configure image for remote development
-#RUN bash zscripts/common-debian.sh
+RUN bash zscripts/common-debian.sh

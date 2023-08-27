@@ -1,5 +1,12 @@
 {
   "name": "intel-mkl-examples",
   "image": "cpmech/intel-mkl-examples",
-  "remoteUser": "vscode"
+  "remoteUser": "vscode",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-vscode.cpptools"
+      ]
+    }
+  }
 }
